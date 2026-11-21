@@ -6,7 +6,7 @@ In a study of Pittsburgh's 412 Food Rescue, 672 of 4,574 requests drew no volunt
 
 ## Run the demo
 
-From the repository root on Windows, run this PowerShell command with a normal user account. The launcher creates a virtual environment on first use. Python 3.11 or uv and an internet connection for the initial install are required.
+From the repository root on Windows, run this PowerShell command with a normal user account. The launcher creates a virtual environment on first use. Use Python 3.11 or later on PATH as `python`, a Python 3.11 installation registered with the `py` launcher, or `uv`. The initial install requires internet access.
 
 ```powershell
 .\demo.ps1

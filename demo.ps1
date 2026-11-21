@@ -10,7 +10,22 @@ try {
     $python = Join-Path $PSScriptRoot '.venv/Scripts/python.exe'
     $uv = Get-Command uv -ErrorAction SilentlyContinue
     if (!(Test-Path -LiteralPath $python)) {
-        if ($uv) { & uv venv --python 3.11 .venv } else { & py -3.11 -m venv .venv }
+        if ($uv) {
+            & uv venv --python 3.11 .venv
+        } else {
+            $pythonCommand = Get-Command python -CommandType Application -TotalCount 1 -ErrorAction SilentlyContinue
+            $launcher = Get-Command py -CommandType Application -TotalCount 1 -ErrorAction SilentlyContinue
+            if ($pythonCommand) {
+                & $pythonCommand -c 'import sys; sys.exit(sys.version_info < (3, 11))'
+            }
+            if ($pythonCommand -and $LASTEXITCODE -eq 0) {
+                & $pythonCommand -m venv .venv
+            } elseif ($launcher) {
+                & $launcher -3.11 -m venv .venv
+            } else {
+                throw 'Install Python 3.11+ or uv, then retry.'
+            }
+        }
         if ($LASTEXITCODE -ne 0) { throw 'Install Python 3.11+ or uv, then retry.' }
     }
     if ($uv) { & uv pip install --python $python -r requirements.txt }
