@@ -1,9 +1,11 @@
 param(
     [switch]$Live,
     [ValidateSet('composed','individual')][string]$Mode = 'composed',
-    [string]$Question = 'Who can cover pickup R24?'
+    [string]$Question = 'Who can cover pickup R24?',
+    [switch]$Defense
 )
 $ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
 Push-Location $PSScriptRoot
 $inferenceProcess = $null
 try {
@@ -28,10 +30,12 @@ try {
         }
         if ($LASTEXITCODE -ne 0) { throw 'Install Python 3.11+ or uv, then retry.' }
     }
-    if ($uv) { & uv pip install --python $python -r requirements.txt }
-    else { & $python -m pip install -r requirements.txt }
+    $pipOptions = @()
+    if ($Defense) { $pipOptions += '--quiet' }
+    if ($uv) { & uv pip install --python $python -r requirements.txt @pipOptions }
+    else { & $python -m pip install -r requirements.txt @pipOptions }
     if ($LASTEXITCODE -ne 0) { throw 'Could not install the project dependencies.' }
-    if (!$Live) {
+    if (!$Live -and !$Defense) {
         & $python demo.py
     } else {
         $endpoint = $env:DISPATCH_MODEL_URL
@@ -40,6 +44,19 @@ try {
             $cache = Join-Path $env:LOCALAPPDATA 'vibeathon-tools'
             $server = Join-Path $cache 'llama/llama-server.exe'
             $weights = Join-Path $cache 'Qwen3-4B-Instruct-2507-Q4_K_M.gguf'
+            $model = 'Qwen3-4B-Instruct-2507'
+            $inferenceOptions = @('-c', '8192')
+            if ($Defense) {
+                $demoServer = Join-Path $PSScriptRoot '.work/llama-runtime/llama-server.exe'
+                $demoWeights = Join-Path $PSScriptRoot '.work/Qwen3.5-0.8B-Q4_K_M.gguf'
+                if ((Test-Path -LiteralPath $demoServer -PathType Leaf) -and
+                    (Test-Path -LiteralPath $demoWeights -PathType Leaf)) {
+                    $server = $demoServer
+                    $weights = $demoWeights
+                    $model = 'Qwen3.5-0.8B-Q4_K_M'
+                    $inferenceOptions = @('-c', '4096', '-b', '256', '-ub', '128', '-ngl', '0', '--reasoning', 'off')
+                }
+            }
             if (!(Test-Path -LiteralPath $server) -or !(Test-Path -LiteralPath $weights)) {
                 throw 'For live inference set DISPATCH_MODEL_URL and DISPATCH_MODEL as described in README.md.'
             }
@@ -47,11 +64,11 @@ try {
             $listener.Start()
             try { $port = $listener.LocalEndpoint.Port } finally { $listener.Stop() }
             $endpoint = "http://127.0.0.1:$port/v1"
-            $model = 'Qwen3-4B-Instruct-2507'
-            $inferenceProcess = Start-Process -WindowStyle Hidden -PassThru -FilePath $server -ArgumentList @(
+            $inferenceArguments = @(
                 '-m', ('"{0}"' -f $weights), '--alias', $model, '--host', '127.0.0.1', '--port', $port,
-                '-c', '8192', '-np', '1', '-t', '6', '--jinja'
-            )
+                '-np', '1', '-t', '6', '--jinja'
+            ) + $inferenceOptions
+            $inferenceProcess = Start-Process -WindowStyle Hidden -PassThru -FilePath $server -ArgumentList $inferenceArguments
             $ready = $false
             for ($i = 0; $i -lt 90 -and !$ready; $i++) {
                 if ($inferenceProcess.HasExited) { throw 'The local inference server stopped during startup.' }
@@ -61,7 +78,11 @@ try {
             if (!$ready) { throw 'The local model did not become ready within the startup window.' }
         }
         if (!$model) { throw 'Set DISPATCH_MODEL to the name served by DISPATCH_MODEL_URL.' }
-        & $python agent.py $Question --mode $Mode --base-url $endpoint --model $model
+        if ($Defense) {
+            & $python -u defense.py --base-url $endpoint --model $model
+        } else {
+            & $python agent.py $Question --mode $Mode --base-url $endpoint --model $model
+        }
     }
     if ($LASTEXITCODE -ne 0) { throw "Demo exited with code $LASTEXITCODE." }
 } finally {

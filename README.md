@@ -29,6 +29,16 @@ The demo invokes the generated MCP server using the included offline data. On th
 | R25 | The pantry closes at 15:40. Even a driver already at the donor could only finish at 16:02. |
 | R26 | Ask for the permitted transport time for the perishable load before proposing a route. |
 
+## Run the Track 2 defense demo on Windows
+
+Open PowerShell in the repository root. To run with a local model, extract the [llama.cpp Windows x64 CPU release](https://github.com/ggml-org/llama.cpp/releases/tag/b12603) into `.work\llama-runtime` so that `llama-server.exe` is directly inside that folder. Save [Qwen3.5-0.8B-Q4_K_M.gguf](https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/blob/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_K_M.gguf) directly in `.work`. If you already have a model endpoint with tool calling, use the `DISPATCH_MODEL_URL` and `DISPATCH_MODEL` settings below instead.
+
+```powershell
+.\demo.ps1 -Defense
+```
+
+The agent asks “Who can cover pickup R24?” in both modes. Expect `V20` and delivery at `16:27` in both, with one MCP call in composed mode and three in individual mode. The demo assumes `V20` agreed. When prompted, type `ASSIGN R24 V20` and press Enter. The terminal shows `ASSIGNED`, then the same question returns `ALREADY_ASSIGNED`. Each run creates its own SQLite ledger under `.work\defense-*`.
+
 ## Run the agent
 
 Use an OpenAI-compatible chat-completions endpoint with tool calling. Set `DISPATCH_MODEL_URL` to its base URL including `/v1` and `DISPATCH_MODEL` to its served model ID. The optional `DISPATCH_MODEL_API_KEY` is read from the environment. On the prepared Windows demo machine the launcher can start the cached Qwen model itself.
