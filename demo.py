@@ -6,7 +6,15 @@ import json
 import os
 import sys
 
-from agent import ROOT, SERVERS, answer_from_report, clock, connect, tool_value
+from agent import (
+    ROOT,
+    SERVERS,
+    answer_from_report,
+    clock,
+    connect,
+    delay_note,
+    tool_value,
+)
 from food_rescue.service import confirm_assignment, record_unavailable
 
 
@@ -27,6 +35,8 @@ def confirm_change(report, driver, *, unavailable=False):
         f"Selected {driver} for {case}: {report['pickup']} at {clock(choice['pickup_at'])}, "
         f"{report['dropoff']} by {clock(choice['delivered_at'])}."
     )
+    if not unavailable:
+        print(delay_note(choice))
     condition = "the volunteer declines or cancels" if unavailable else "the volunteer accepts"
     print(f"After {condition}, type {action} {case} {driver} to confirm.")
     try:

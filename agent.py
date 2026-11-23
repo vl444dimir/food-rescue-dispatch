@@ -65,6 +65,21 @@ def clock(minute):
     return f"{minute // 60:02d}:{minute % 60:02d}"
 
 
+def delay_note(plan):
+    delay = plan["delivery_leg_delay"]
+    labels = {
+        "delivery_deadline": "pantry closing",
+        "cold_time_limit": "the perishable-load time limit",
+        "existing_booking": "the next booking",
+        "shift_return": "return before shift end",
+    }
+    limits = " and ".join(labels[key] for key in delay["limiting_constraints"])
+    return (
+        f"Extra driving time from donor to pantry: up to {delay['max_extra_minutes']} min "
+        f"with this pickup time. Limited by {limits}."
+    )
+
+
 def answer_from_report(report):
     if "error" in report:
         return "Unable to verify. " + report["error"]
@@ -80,6 +95,7 @@ def answer_from_report(report):
             f"{clock(p['delivered_at'])}, {p['deadline_slack_min']} min before closing. "
             f"{len(report['candidates'])} feasible of {report['screened']} screened."
         )
+        line += "\n" + delay_note(p)
         if len(report["candidates"]) > 1:
             alt = report["candidates"][1]
             line += f"\nNext option: {alt['driver']}, delivery {clock(alt['delivered_at'])}."

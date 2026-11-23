@@ -51,7 +51,13 @@
               "deadline_slack_min": 33,
               "shift_return_at": 1002,
               "road_minutes_full_tour": 62,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V29",
@@ -61,7 +67,13 @@
               "deadline_slack_min": 25,
               "shift_return_at": 1011,
               "road_minutes_full_tour": 71,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V32",
@@ -71,7 +83,13 @@
               "deadline_slack_min": 24,
               "shift_return_at": 1007,
               "road_minutes_full_tour": 67,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V22",
@@ -81,7 +99,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1008,
               "road_minutes_full_tour": 68,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V19",
@@ -91,7 +116,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1019,
               "road_minutes_full_tour": 79,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V33",
@@ -101,7 +133,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1023,
               "road_minutes_full_tour": 83,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             }
           ],
           "road_source": "OSRM driving / OpenStreetMap",
@@ -152,7 +191,13 @@
           "deadline_slack_min": 33,
           "shift_return_at": 1002,
           "road_minutes_full_tour": 62,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V29",
@@ -162,7 +207,13 @@
           "deadline_slack_min": 25,
           "shift_return_at": 1011,
           "road_minutes_full_tour": 71,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V32",
@@ -172,7 +223,13 @@
           "deadline_slack_min": 24,
           "shift_return_at": 1007,
           "road_minutes_full_tour": 67,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V22",
@@ -182,7 +239,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1008,
           "road_minutes_full_tour": 68,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V19",
@@ -192,7 +256,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1019,
           "road_minutes_full_tour": 79,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V33",
@@ -202,15 +273,22 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1023,
           "road_minutes_full_tour": 83,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         }
       ],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
-    "elapsed_seconds": 4.56,
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nExtra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 14.73,
     "round": 1,
     "case": "R24",
     "scenario": "baseline",
@@ -321,7 +399,13 @@
               "deadline_slack_min": 33,
               "shift_return_at": 1002,
               "road_minutes_full_tour": 62,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V29",
@@ -331,7 +415,13 @@
               "deadline_slack_min": 25,
               "shift_return_at": 1011,
               "road_minutes_full_tour": 71,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V32",
@@ -341,7 +431,13 @@
               "deadline_slack_min": 24,
               "shift_return_at": 1007,
               "road_minutes_full_tour": 67,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V22",
@@ -351,7 +447,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1008,
               "road_minutes_full_tour": 68,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V19",
@@ -361,7 +464,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1019,
               "road_minutes_full_tour": 79,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V33",
@@ -371,7 +481,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1023,
               "road_minutes_full_tour": 83,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             }
           ],
           "road_source": "OSRM driving / OpenStreetMap",
@@ -422,7 +539,13 @@
           "deadline_slack_min": 33,
           "shift_return_at": 1002,
           "road_minutes_full_tour": 62,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V29",
@@ -432,7 +555,13 @@
           "deadline_slack_min": 25,
           "shift_return_at": 1011,
           "road_minutes_full_tour": 71,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V32",
@@ -442,7 +571,13 @@
           "deadline_slack_min": 24,
           "shift_return_at": 1007,
           "road_minutes_full_tour": 67,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V22",
@@ -452,7 +587,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1008,
           "road_minutes_full_tour": 68,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V19",
@@ -462,7 +604,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1019,
           "road_minutes_full_tour": 79,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V33",
@@ -472,15 +621,22 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1023,
           "road_minutes_full_tour": 83,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         }
       ],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
-    "elapsed_seconds": 24.93,
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nExtra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 37.07,
     "round": 1,
     "case": "R24",
     "scenario": "baseline",
@@ -607,7 +763,7 @@
       "earliest_possible_delivery": 962
     },
     "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP25 to D25, load 1. Board at 15:30 on 2026-11-20 (America/New_York). Earliest possible 16:02, closing 15:40.",
-    "elapsed_seconds": 28.01,
+    "elapsed_seconds": 24.0,
     "round": 1,
     "case": "R25",
     "scenario": "tight_window",
@@ -681,7 +837,7 @@
       "earliest_possible_delivery": 962
     },
     "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP25 to D25, load 1. Board at 15:30 on 2026-11-20 (America/New_York). Earliest possible 16:02, closing 15:40.",
-    "elapsed_seconds": 6.98,
+    "elapsed_seconds": 4.23,
     "round": 1,
     "case": "R25",
     "scenario": "tight_window",
@@ -753,7 +909,7 @@
       "reason": "Missing transport time limit for perishable goods."
     },
     "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.\nP26 to D26, load 1. Board at 15:30 on 2026-11-20 (America/New_York).",
-    "elapsed_seconds": 6.07,
+    "elapsed_seconds": 4.64,
     "round": 1,
     "case": "R26",
     "scenario": "missing_policy",
@@ -878,7 +1034,7 @@
       "reason": "Missing transport time limit for perishable goods."
     },
     "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.\nP26 to D26, load 1. Board at 15:30 on 2026-11-20 (America/New_York).",
-    "elapsed_seconds": 29.28,
+    "elapsed_seconds": 26.66,
     "round": 1,
     "case": "R26",
     "scenario": "missing_policy",
@@ -906,7 +1062,7 @@
       "error": "Error executing tool get_cancelled_pickup: Unknown cancellation R999."
     },
     "answer": "Unable to verify. Error executing tool get_cancelled_pickup: Unknown cancellation R999.",
-    "elapsed_seconds": 10.84,
+    "elapsed_seconds": 4.93,
     "round": 1,
     "case": "R999",
     "scenario": "unknown",
@@ -934,7 +1090,7 @@
       "error": "Error executing tool plan_rescue: Unknown cancellation R999."
     },
     "answer": "Unable to verify. Error executing tool plan_rescue: Unknown cancellation R999.",
-    "elapsed_seconds": 7.26,
+    "elapsed_seconds": 4.41,
     "round": 1,
     "case": "R999",
     "scenario": "unknown",
@@ -994,7 +1150,13 @@
               "deadline_slack_min": 25,
               "shift_return_at": 1011,
               "road_minutes_full_tour": 71,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V32",
@@ -1004,7 +1166,13 @@
               "deadline_slack_min": 24,
               "shift_return_at": 1007,
               "road_minutes_full_tour": 67,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V22",
@@ -1014,7 +1182,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1008,
               "road_minutes_full_tour": 68,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V19",
@@ -1024,7 +1199,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1019,
               "road_minutes_full_tour": 79,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V33",
@@ -1034,7 +1216,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1023,
               "road_minutes_full_tour": 83,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             }
           ],
           "road_source": "OSRM driving / OpenStreetMap",
@@ -1086,7 +1275,13 @@
           "deadline_slack_min": 25,
           "shift_return_at": 1011,
           "road_minutes_full_tour": 71,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V32",
@@ -1096,7 +1291,13 @@
           "deadline_slack_min": 24,
           "shift_return_at": 1007,
           "road_minutes_full_tour": 67,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V22",
@@ -1106,7 +1307,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1008,
           "road_minutes_full_tour": 68,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V19",
@@ -1116,7 +1324,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1019,
           "road_minutes_full_tour": 79,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V33",
@@ -1126,15 +1341,22 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1023,
           "road_minutes_full_tour": 83,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         }
       ],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
-    "elapsed_seconds": 4.85,
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nExtra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 4.08,
     "round": 1,
     "case": "R24",
     "scenario": "declined",
@@ -1245,7 +1467,13 @@
               "deadline_slack_min": 25,
               "shift_return_at": 1011,
               "road_minutes_full_tour": 71,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V32",
@@ -1255,7 +1483,13 @@
               "deadline_slack_min": 24,
               "shift_return_at": 1007,
               "road_minutes_full_tour": 67,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V22",
@@ -1265,7 +1499,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1008,
               "road_minutes_full_tour": 68,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V19",
@@ -1275,7 +1516,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1019,
               "road_minutes_full_tour": 79,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V33",
@@ -1285,7 +1533,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1023,
               "road_minutes_full_tour": 83,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             }
           ],
           "road_source": "OSRM driving / OpenStreetMap",
@@ -1337,7 +1592,13 @@
           "deadline_slack_min": 25,
           "shift_return_at": 1011,
           "road_minutes_full_tour": 71,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V32",
@@ -1347,7 +1608,13 @@
           "deadline_slack_min": 24,
           "shift_return_at": 1007,
           "road_minutes_full_tour": 67,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V22",
@@ -1357,7 +1624,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1008,
           "road_minutes_full_tour": 68,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V19",
@@ -1367,7 +1641,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1019,
           "road_minutes_full_tour": 79,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V33",
@@ -1377,15 +1658,22 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1023,
           "road_minutes_full_tour": 83,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         }
       ],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
-    "elapsed_seconds": 26.45,
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nExtra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 24.6,
     "round": 1,
     "case": "R24",
     "scenario": "declined",
@@ -1495,7 +1783,7 @@
       "earliest_possible_delivery": 1047
     },
     "answer": "R24 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP24 to D24, load 3. Board at 16:50 on 2026-11-20 (America/New_York). Earliest possible 17:27, closing 17:00.",
-    "elapsed_seconds": 27.35,
+    "elapsed_seconds": 19.12,
     "round": 1,
     "case": "R24",
     "scenario": "late",
@@ -1571,7 +1859,7 @@
       "earliest_possible_delivery": 1047
     },
     "answer": "R24 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP24 to D24, load 3. Board at 16:50 on 2026-11-20 (America/New_York). Earliest possible 17:27, closing 17:00.",
-    "elapsed_seconds": 8.54,
+    "elapsed_seconds": 4.23,
     "round": 1,
     "case": "R24",
     "scenario": "late",
@@ -1682,7 +1970,13 @@
               "deadline_slack_min": 33,
               "shift_return_at": 1002,
               "road_minutes_full_tour": 62,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V29",
@@ -1692,7 +1986,13 @@
               "deadline_slack_min": 25,
               "shift_return_at": 1011,
               "road_minutes_full_tour": 71,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V32",
@@ -1702,7 +2002,13 @@
               "deadline_slack_min": 24,
               "shift_return_at": 1007,
               "road_minutes_full_tour": 67,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V22",
@@ -1712,7 +2018,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1008,
               "road_minutes_full_tour": 68,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V19",
@@ -1722,7 +2035,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1019,
               "road_minutes_full_tour": 79,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V33",
@@ -1732,7 +2052,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1023,
               "road_minutes_full_tour": 83,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             }
           ],
           "road_source": "OSRM driving / OpenStreetMap",
@@ -1783,7 +2110,13 @@
           "deadline_slack_min": 33,
           "shift_return_at": 1002,
           "road_minutes_full_tour": 62,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V29",
@@ -1793,7 +2126,13 @@
           "deadline_slack_min": 25,
           "shift_return_at": 1011,
           "road_minutes_full_tour": 71,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V32",
@@ -1803,7 +2142,13 @@
           "deadline_slack_min": 24,
           "shift_return_at": 1007,
           "road_minutes_full_tour": 67,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V22",
@@ -1813,7 +2158,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1008,
           "road_minutes_full_tour": 68,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V19",
@@ -1823,7 +2175,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1019,
           "road_minutes_full_tour": 79,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V33",
@@ -1833,15 +2192,22 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1023,
           "road_minutes_full_tour": 83,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         }
       ],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
-    "elapsed_seconds": 57.22,
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nExtra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 24.89,
     "round": 2,
     "case": "R24",
     "scenario": "baseline",
@@ -1900,7 +2266,13 @@
               "deadline_slack_min": 33,
               "shift_return_at": 1002,
               "road_minutes_full_tour": 62,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V29",
@@ -1910,7 +2282,13 @@
               "deadline_slack_min": 25,
               "shift_return_at": 1011,
               "road_minutes_full_tour": 71,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V32",
@@ -1920,7 +2298,13 @@
               "deadline_slack_min": 24,
               "shift_return_at": 1007,
               "road_minutes_full_tour": 67,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V22",
@@ -1930,7 +2314,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1008,
               "road_minutes_full_tour": 68,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V19",
@@ -1940,7 +2331,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1019,
               "road_minutes_full_tour": 79,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V33",
@@ -1950,7 +2348,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1023,
               "road_minutes_full_tour": 83,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             }
           ],
           "road_source": "OSRM driving / OpenStreetMap",
@@ -2001,7 +2406,13 @@
           "deadline_slack_min": 33,
           "shift_return_at": 1002,
           "road_minutes_full_tour": 62,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V29",
@@ -2011,7 +2422,13 @@
           "deadline_slack_min": 25,
           "shift_return_at": 1011,
           "road_minutes_full_tour": 71,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V32",
@@ -2021,7 +2438,13 @@
           "deadline_slack_min": 24,
           "shift_return_at": 1007,
           "road_minutes_full_tour": 67,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V22",
@@ -2031,7 +2454,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1008,
           "road_minutes_full_tour": 68,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V19",
@@ -2041,7 +2471,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1019,
           "road_minutes_full_tour": 79,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V33",
@@ -2051,15 +2488,22 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1023,
           "road_minutes_full_tour": 83,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         }
       ],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
-    "elapsed_seconds": 8.79,
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nExtra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 4.04,
     "round": 2,
     "case": "R24",
     "scenario": "baseline",
@@ -2133,7 +2577,7 @@
       "earliest_possible_delivery": 962
     },
     "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP25 to D25, load 1. Board at 15:30 on 2026-11-20 (America/New_York). Earliest possible 16:02, closing 15:40.",
-    "elapsed_seconds": 13.36,
+    "elapsed_seconds": 4.38,
     "round": 2,
     "case": "R25",
     "scenario": "tight_window",
@@ -2260,7 +2704,7 @@
       "earliest_possible_delivery": 962
     },
     "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP25 to D25, load 1. Board at 15:30 on 2026-11-20 (America/New_York). Earliest possible 16:02, closing 15:40.",
-    "elapsed_seconds": 64.46,
+    "elapsed_seconds": 26.16,
     "round": 2,
     "case": "R25",
     "scenario": "tight_window",
@@ -2385,7 +2829,7 @@
       "reason": "Missing transport time limit for perishable goods."
     },
     "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.\nP26 to D26, load 1. Board at 15:30 on 2026-11-20 (America/New_York).",
-    "elapsed_seconds": 58.0,
+    "elapsed_seconds": 25.95,
     "round": 2,
     "case": "R26",
     "scenario": "missing_policy",
@@ -2457,7 +2901,7 @@
       "reason": "Missing transport time limit for perishable goods."
     },
     "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.\nP26 to D26, load 1. Board at 15:30 on 2026-11-20 (America/New_York).",
-    "elapsed_seconds": 17.95,
+    "elapsed_seconds": 4.12,
     "round": 2,
     "case": "R26",
     "scenario": "missing_policy",
@@ -2485,7 +2929,7 @@
       "error": "Error executing tool plan_rescue: Unknown cancellation R999."
     },
     "answer": "Unable to verify. Error executing tool plan_rescue: Unknown cancellation R999.",
-    "elapsed_seconds": 9.25,
+    "elapsed_seconds": 4.32,
     "round": 2,
     "case": "R999",
     "scenario": "unknown",
@@ -2513,7 +2957,7 @@
       "error": "Error executing tool get_cancelled_pickup: Unknown cancellation R999."
     },
     "answer": "Unable to verify. Error executing tool get_cancelled_pickup: Unknown cancellation R999.",
-    "elapsed_seconds": 10.24,
+    "elapsed_seconds": 4.61,
     "round": 2,
     "case": "R999",
     "scenario": "unknown",
@@ -2624,7 +3068,13 @@
               "deadline_slack_min": 25,
               "shift_return_at": 1011,
               "road_minutes_full_tour": 71,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V32",
@@ -2634,7 +3084,13 @@
               "deadline_slack_min": 24,
               "shift_return_at": 1007,
               "road_minutes_full_tour": 67,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V22",
@@ -2644,7 +3100,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1008,
               "road_minutes_full_tour": 68,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V19",
@@ -2654,7 +3117,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1019,
               "road_minutes_full_tour": 79,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V33",
@@ -2664,7 +3134,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1023,
               "road_minutes_full_tour": 83,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             }
           ],
           "road_source": "OSRM driving / OpenStreetMap",
@@ -2716,7 +3193,13 @@
           "deadline_slack_min": 25,
           "shift_return_at": 1011,
           "road_minutes_full_tour": 71,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V32",
@@ -2726,7 +3209,13 @@
           "deadline_slack_min": 24,
           "shift_return_at": 1007,
           "road_minutes_full_tour": 67,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V22",
@@ -2736,7 +3225,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1008,
           "road_minutes_full_tour": 68,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V19",
@@ -2746,7 +3242,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1019,
           "road_minutes_full_tour": 79,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V33",
@@ -2756,15 +3259,22 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1023,
           "road_minutes_full_tour": 83,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         }
       ],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
-    "elapsed_seconds": 47.56,
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nExtra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 24.53,
     "round": 2,
     "case": "R24",
     "scenario": "declined",
@@ -2824,7 +3334,13 @@
               "deadline_slack_min": 25,
               "shift_return_at": 1011,
               "road_minutes_full_tour": 71,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V32",
@@ -2834,7 +3350,13 @@
               "deadline_slack_min": 24,
               "shift_return_at": 1007,
               "road_minutes_full_tour": 67,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V22",
@@ -2844,7 +3366,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1008,
               "road_minutes_full_tour": 68,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V19",
@@ -2854,7 +3383,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1019,
               "road_minutes_full_tour": 79,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             },
             {
               "driver": "V33",
@@ -2864,7 +3400,14 @@
               "deadline_slack_min": 23,
               "shift_return_at": 1023,
               "road_minutes_full_tour": 83,
-              "bookings_before_pickup": 0
+              "bookings_before_pickup": 0,
+              "delivery_leg_delay": {
+                "max_extra_minutes": 23,
+                "limiting_constraints": [
+                  "delivery_deadline",
+                  "cold_time_limit"
+                ]
+              }
             }
           ],
           "road_source": "OSRM driving / OpenStreetMap",
@@ -2916,7 +3459,13 @@
           "deadline_slack_min": 25,
           "shift_return_at": 1011,
           "road_minutes_full_tour": 71,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V32",
@@ -2926,7 +3475,13 @@
           "deadline_slack_min": 24,
           "shift_return_at": 1007,
           "road_minutes_full_tour": 67,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V22",
@@ -2936,7 +3491,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1008,
           "road_minutes_full_tour": 68,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V19",
@@ -2946,7 +3508,14 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1019,
           "road_minutes_full_tour": 79,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         },
         {
           "driver": "V33",
@@ -2956,15 +3525,22 @@
           "deadline_slack_min": 23,
           "shift_return_at": 1023,
           "road_minutes_full_tour": 83,
-          "bookings_before_pickup": 0
+          "bookings_before_pickup": 0,
+          "delivery_leg_delay": {
+            "max_extra_minutes": 23,
+            "limiting_constraints": [
+              "delivery_deadline",
+              "cold_time_limit"
+            ]
+          }
         }
       ],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
-    "elapsed_seconds": 8.65,
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nExtra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 4.28,
     "round": 2,
     "case": "R24",
     "scenario": "declined",
@@ -3040,7 +3616,7 @@
       "earliest_possible_delivery": 1047
     },
     "answer": "R24 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP24 to D24, load 3. Board at 16:50 on 2026-11-20 (America/New_York). Earliest possible 17:27, closing 17:00.",
-    "elapsed_seconds": 17.13,
+    "elapsed_seconds": 3.96,
     "round": 2,
     "case": "R24",
     "scenario": "late",
@@ -3150,7 +3726,7 @@
       "earliest_possible_delivery": 1047
     },
     "answer": "R24 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP24 to D24, load 3. Board at 16:50 on 2026-11-20 (America/New_York). Earliest possible 17:27, closing 17:00.",
-    "elapsed_seconds": 36.99,
+    "elapsed_seconds": 19.2,
     "round": 2,
     "case": "R24",
     "scenario": "late",

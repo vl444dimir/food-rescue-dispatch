@@ -106,6 +106,58 @@ class RoutingTests(unittest.TestCase):
                 self.assertEqual(
                     plan["delivered_at"] if plan else None, min(feasible, default=None)
                 )
+                if plan:
+                    loaded = plan["pickup_done"]
+                    # Replay the selected route minute by minute, delaying only the loaded leg.
+                    for extra in range(1, deadline - loaded + 2):
+                        done = max(loaded + roads["donor", "pantry"] + extra, opens) + handle
+                        missed = set()
+                        if done > deadline:
+                            missed.add("delivery_deadline")
+                        if done - loaded > limit:
+                            missed.add("cold_time_limit")
+                        if plan["bookings_before_pickup"] == 0:
+                            if done + roads["pantry", "stop"] > stop_at:
+                                missed.add("existing_booking")
+                        elif done + roads["pantry", "home"] > 565:
+                            missed.add("shift_return")
+                        if missed:
+                            break
+                    margin = plan["delivery_leg_delay"]
+                    self.assertEqual(margin["max_extra_minutes"], extra - 1)
+                    self.assertCountEqual(margin["limiting_constraints"], missed)
+
+    def test_delay_can_replace_waiting_before_pantry_opens(self):
+        case = pickup(perishable=False, max_onboard=None, dropoff_window=[550, 560])
+        plan, _ = route_for_driver(driver(), case, 5, travel, [])
+        self.assertEqual(plan["deadline_slack_min"], 5)
+        self.assertEqual(
+            plan["delivery_leg_delay"],
+            {"max_extra_minutes": 30, "limiting_constraints": ["delivery_deadline"]},
+        )
+
+    def test_delay_margin_reports_zero_and_simultaneous_limits(self):
+        plan, _ = route_for_driver(
+            driver(shifts=[[400, 540]]),
+            pickup(dropoff_window=[450, 530], max_onboard=15),
+            5,
+            travel,
+            [],
+        )
+        self.assertEqual(plan["delivery_leg_delay"]["max_extra_minutes"], 0)
+        self.assertCountEqual(
+            plan["delivery_leg_delay"]["limiting_constraints"],
+            ["delivery_deadline", "cold_time_limit", "shift_return"],
+        )
+
+    def test_next_booking_limits_delay_even_with_open_pantry(self):
+        fixed = [Booking("stop", 541, "stop", 550)]
+        plan, _ = route_for_driver(driver(), pickup(), 5, travel, fixed)
+        self.assertEqual(plan["deadline_slack_min"], 80)
+        self.assertEqual(
+            plan["delivery_leg_delay"],
+            {"max_extra_minutes": 1, "limiting_constraints": ["existing_booking"]},
+        )
 
     def test_prior_booking_invalidates_older_checkin(self):
         booking = [Booking("donor", 470, "pantry", 499)]
@@ -205,6 +257,10 @@ class DispatchTests(unittest.TestCase):
 
     def test_demo_cases_and_read_only(self):
         p = self.report("R24")
+        self.assertEqual(
+            p["candidates"][0]["delivery_leg_delay"],
+            {"max_extra_minutes": 23, "limiting_constraints": ["cold_time_limit"]},
+        )
         self.assertEqual((p["screened"], p["eligible"], len(p["candidates"])), (50, 8, 6))
         self.assertEqual(
             (p["candidates"][0]["driver"], p["candidates"][0]["deadline_slack_min"]), ("V20", 33)

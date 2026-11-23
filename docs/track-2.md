@@ -2,7 +2,7 @@
 
 ## What to show the judges
 
-1. Ask “Who can cover pickup R24?” The pantry closes at 17:00. Volunteer V27 could arrive earlier but already has a fixed appointment. The best feasible option is V20. From 15:30 allow 20 minutes to reach the donor, 5 to load, 27 to drive and 5 to unload. Delivery finishes at 16:27.
+1. Ask “Who can cover pickup R24?” V27 already has a fixed appointment. V20 can finish at 16:27, 33 minutes before the pantry closes. Ask the audience what happens if the loaded drive takes 24 minutes longer. Unloading would finish at 16:51, but 56 minutes would have passed since loading. The tool shows a 23-minute delay margin because this scenario sets a 55-minute transport limit.
 2. Ask the same question for R25. Even a driver at the donor would finish 22 minutes after the pantry closes. For R26, a missing cold transport limit calls for a dispatcher check.
 3. Open the comparison, then run the assignment command. The model only plans. Once the volunteer agrees, the dispatcher types an exact confirmation to record the booking. A repeat query reports the recorded assignment.
 4. To answer “What if V20 says no?”, use the confirmed refusal command on the same board. V29 becomes first and the delivery moves to 16:35. A later dispatch time can invalidate every route for that same pickup.
@@ -26,7 +26,7 @@ Two rounds with local Qwen3-4B-Instruct-2507, temperature zero. Counts below are
 
 | Pickup | Composed | Individual | Verified outcome in both rounds |
 | --- | ---: | ---: | --- |
-| R24 | 1 | 3 | V20, delivery at 16:27 with 33 minutes to spare |
+| R24 | 1 | 3 | V20, delivery at 16:27. The pantry closes 33 minutes later. The transport limit leaves 23 extra driving minutes. |
 | R25 | 1 | 3 | No feasible driver, earliest possible 16:02 |
 | R26 | 1 | 3 | Transport limit missing, no proposal |
 | R999 | 1 | 1 | Unknown cancellation reported at lookup |
@@ -35,7 +35,9 @@ Two rounds with local Qwen3-4B-Instruct-2507, temperature zero. Counts below are
 
 Each comparison uses an isolated ledger. The two modes start from the same refusal history and clock. The trace includes rejected attempts, elapsed seconds from opening the MCP session to returning a report, and the complete output for each conversation.
 
-All 24 conversations returned the expected result. The composed mode made 12 MCP calls across its 12 conversations, and the individual mode made 32 across its 12. Neither mode produced a rejected attempt on this run. Median elapsed time on this Windows PC with the local Qwen3-4B model already loaded was 8.6 seconds and 28.6 seconds respectively. Both modes reached the same dispatch decisions.
+All 24 conversations returned the expected result. The composed mode made 12 MCP calls across its 12 conversations, and the individual mode made 32 across its 12. Neither mode produced a rejected attempt on this run. Median elapsed time on this Windows PC with the local Qwen3-4B model already loaded was 4.3 seconds and 24.6 seconds respectively. Both modes reached the same dispatch decisions.
+
+The Windows defense run also shows the 23-minute margin, the assignment and the model reading it back. For this recording an automated input supplied the exact confirmation for a simulated volunteer on an isolated ledger. [Terminal transcript](../evidence/defense-transcript.txt)
 
 ## What the fund would need for a pilot
 

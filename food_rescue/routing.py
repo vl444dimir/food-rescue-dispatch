@@ -116,7 +116,30 @@ def route_for_driver(driver, case, handling, matrix, reservations):
             failures.add(str(exc))
     if not choices:
         return None, sorted(failures)
-    return min(choices, key=lambda r: (r["delivered_at"], r["road_minutes_full_tour"])), []
+    plan = min(choices, key=lambda r: (r["delivered_at"], r["road_minutes_full_tour"]))
+    # Extra driving can replace waiting at a closed pantry. Count from the finish
+    # without that wait, holding loading time and the selected booking order fixed.
+    loaded = plan["pickup_done"]
+    finish_without_wait = loaded + matrix(case.pickup, case.dropoff) + handling
+    latest_finish = {"delivery_deadline": case.dropoff_window[1]}
+    if case.perishable:
+        latest_finish["cold_time_limit"] = loaded + case.max_onboard
+    slot = plan["bookings_before_pickup"]
+    if slot < len(fixed):
+        next_booking = fixed[slot]
+        latest_finish["existing_booking"] = next_booking.start - matrix(
+            case.dropoff, next_booking.origin
+        )
+    else:
+        latest_finish["shift_return"] = shift_end - matrix(case.dropoff, driver.return_to)
+    cutoff = min(latest_finish.values())
+    plan["delivery_leg_delay"] = {
+        "max_extra_minutes": cutoff - finish_without_wait,
+        "limiting_constraints": [
+            name for name, minute in latest_finish.items() if minute == cutoff
+        ],
+    }
+    return plan, []
 
 
 def make_matrix(roads):

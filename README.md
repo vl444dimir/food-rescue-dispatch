@@ -23,11 +23,15 @@ python demo.py
 
 The demo invokes the generated MCP server using the included offline data. On the fresh board it produces these results in Pittsburgh local time.
 
+To inspect a recorded session before installing the model, see the [Windows terminal transcript](evidence/defense-transcript.txt). It contains both tool modes, a simulated dispatcher confirmation and the booking read-back.
+
 | Pickup | What the dispatcher learns |
 | --- | --- |
-| R24 | Contact V20 first. Pickup at 15:50, delivery complete at 16:27, 33 minutes before closing. Six of 50 volunteers have a verified feasible route. |
+| R24 | Contact V20 first. Pickup at 15:50, delivery complete at 16:27. The pantry closes 33 minutes later. The perishable-load limit allows 23 extra minutes on the drive from donor to pantry. |
 | R25 | The pantry closes at 15:40. Even a driver already at the donor could only finish at 16:02. |
 | R26 | Ask for the permitted transport time for the perishable load before proposing a route. |
+
+For each proposed route the tool shows how much longer the loaded drive could take with pickup and subsequent commitments held fixed. In R24 the nominal drive takes 27 minutes and unloading takes five. The scenario permits 55 minutes from loading completion through unloading. A 24-minute delay would put the load at 56 minutes even though the pantry would still be open. The margin uses the supplied road estimates and the fund's configured transport rules.
 
 ## Run the Track 2 defense demo on Windows
 

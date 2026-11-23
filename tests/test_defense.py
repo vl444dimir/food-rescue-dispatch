@@ -35,6 +35,14 @@ class DefenseTests(unittest.IsolatedAsyncioTestCase):
         self.assertIn("Selected V29 for R24: P24 at 15:58, D24 by 16:35.", output.getvalue())
         self.assertFalse(self.ledger.exists())
 
+    def test_confirmation_shows_constraints_for_the_selected_backup(self):
+        with patch("builtins.input", return_value=""), redirect_stdout(io.StringIO()) as output:
+            confirm_change(self.report, "V22")
+        self.assertIn(
+            "Limited by pantry closing and the perishable-load time limit.", output.getvalue()
+        )
+        self.assertFalse(self.ledger.exists())
+
     async def test_claimed_booking_requires_exact_readback(self):
         wrong = {"status": "ALREADY_ASSIGNED", "assignment": {"driver": "V29"}}
         for last in (self.report, wrong):
