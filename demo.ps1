@@ -79,7 +79,9 @@ try {
         }
         if (!$model) { throw 'Set DISPATCH_MODEL to the name served by DISPATCH_MODEL_URL.' }
         if ($Defense) {
-            & $python -u defense.py --base-url $endpoint --model $model
+            $defenseArgs = @('-u', 'defense.py', '--base-url', $endpoint, '--model', $model, '--question', $Question)
+            if ($MyInvocation.ExpectingInput) { $input | & $python @defenseArgs }
+            else { & $python @defenseArgs }
         } else {
             & $python agent.py $Question --mode $Mode --base-url $endpoint --model $model
         }

@@ -4,9 +4,7 @@ import hashlib
 import json
 import os
 import re
-import sqlite3
 from collections import Counter
-from contextlib import closing
 from pathlib import Path
 
 from . import ledger
@@ -30,7 +28,22 @@ class Snapshot:
         if case_id not in self.board.cases:
             raise ValueError(f"Unknown cancellation {case_id}.")
         self.case = self.board.cases[case_id]
-        self.bookings = ledger.load_day(self.board.service_date, connection)
+        self.bookings, unavailable, last_change = ledger.load_state(
+            self.board.service_date, connection
+        )
+        minute = max(self.case.as_of, last_change)
+        clock = os.getenv("DISPATCH_AT")
+        if clock:
+            if not re.fullmatch(r"(?:[01]\d|2[0-3]):[0-5]\d", clock):
+                raise ValueError("Use a local dispatch time in HH:MM format.")
+            hour, minute = map(int, clock.split(":"))
+            minute += hour * 60
+            if minute < self.case.as_of:
+                raise ValueError("Dispatch time precedes this cancellation.")
+            if minute < last_change:
+                raise ValueError("Dispatch time precedes the last recorded change.")
+        self.case = self.case.model_copy(update={"as_of": minute})
+        self.unavailable = {driver for case, driver in unavailable if case == case_id}
         revision = hashlib.sha256(
             board_bytes
             + b"\0"
@@ -38,12 +51,20 @@ class Snapshot:
             + b"\0"
             + json.dumps(self.bookings, sort_keys=True).encode()
         )
+        if unavailable:
+            revision.update(json.dumps(unavailable).encode())
+        if self.case.as_of != self.board.cases[case_id].as_of:
+            revision.update(f" at {self.case.as_of}".encode())
         self.ref = case_id + "-" + revision.hexdigest()[:12]
 
     def screen(self):
         eligible, excluded = [], Counter()
         for name, driver in self.board.drivers.items():
-            reason = exclusion(name, driver, self.case, self.board.fresh_for)
+            reason = (
+                "reported_unavailable"
+                if name in self.unavailable
+                else exclusion(name, driver, self.case, self.board.fresh_for)
+            )
             if reason:
                 excluded[reason] += 1
             else:
@@ -58,6 +79,8 @@ class Snapshot:
         report = {
             "case_id": self.case_id,
             "case_ref": self.ref,
+            "pickup": case.pickup,
+            "dropoff": case.dropoff,
             "as_of": case.as_of,
             "service_date": self.board.service_date,
             "timezone": self.board.timezone,
@@ -67,6 +90,7 @@ class Snapshot:
             "eligible": len(driver_ids),
             "excluded": pool["excluded"],
             "route_failures": {},
+            "blocked_routes": {},
             "candidates": [],
             "road_source": self.roads.source,
             "status": "",
@@ -77,13 +101,17 @@ class Snapshot:
             return {
                 **report,
                 "status": "ALREADY_ASSIGNED",
+                "assignment": assigned,
                 "reason": "Recorded by dispatcher: " + assigned["driver"],
             }
-        if case.perishable and case.max_onboard is None:
+        uncertain_screen = any(
+            pool["excluded"].get(key) for key in ("unverified_position", "unverified_cold_carrier")
+        )
+        if not driver_ids and not uncertain_screen:
             return {
                 **report,
-                "status": "NEEDS_INFO",
-                "reason": "Missing transport time limit for perishable goods.",
+                "status": "NO_FEASIBLE_DRIVER",
+                "reason": "All volunteers are unavailable or fail a known shift, capacity or equipment requirement.",
             }
         matrix = make_matrix(self.roads)
         handling = self.board.handling_minutes
@@ -93,6 +121,12 @@ class Snapshot:
                 **report,
                 "status": "NO_FEASIBLE_DRIVER",
                 "reason": "Pickup would finish after closing even with a driver at the donor.",
+            }
+        if max(loaded, case.dropoff_window[0]) + handling > case.dropoff_window[1]:
+            return {
+                **report,
+                "status": "NO_FEASIBLE_DRIVER",
+                "reason": "Handling alone would finish after the recipient closes.",
             }
         try:
             onward = matrix(case.pickup, case.dropoff)
@@ -109,6 +143,12 @@ class Snapshot:
                 "status": "NO_FEASIBLE_DRIVER",
                 "earliest_possible_delivery": earliest,
                 "reason": "Even a driver already at the donor would finish delivery after closing.",
+            }
+        if case.perishable and case.max_onboard is None:
+            return {
+                **report,
+                "status": "NEEDS_INFO",
+                "reason": "Missing transport time limit for perishable goods.",
             }
         if case.perishable and onward + handling > case.max_onboard:
             return {
@@ -127,6 +167,7 @@ class Snapshot:
                 self.board.drivers[name], case, self.board.handling_minutes, matrix, fixed
             )
             if plan is None:
+                report["blocked_routes"][name] = reasons
                 failures.update(reasons)
                 continue
             report["candidates"].append({"driver": name, **plan})
@@ -138,9 +179,7 @@ class Snapshot:
             report.update(
                 status="PROPOSED", reason="Dispatcher and volunteer confirmation required."
             )
-        elif failures["road_unknown"] or any(
-            pool["excluded"].get(key) for key in ("unverified_position", "unverified_cold_carrier")
-        ):
+        elif failures["road_unknown"] or failures["unverified_position"] or uncertain_screen:
             report.update(
                 status="NEEDS_INFO",
                 reason="No verified route. Refresh missing road, position or equipment data.",
@@ -199,13 +238,10 @@ def confirm_assignment(case_ref, driver, confirmation):
         return picked
 
     chosen(initial)
-    path = ledger.ledger_path()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with closing(sqlite3.connect(path, timeout=10)) as conn, conn:
-        conn.execute("BEGIN IMMEDIATE")
-        conn.execute(ledger.TABLE)
+    with ledger.write_transaction() as conn:
         s = from_reference(case_ref, conn)
         picked = chosen(s)
+        ledger.advance_clock(conn, s.board.service_date, s.case.as_of)
         conn.execute(
             "INSERT INTO assignments VALUES (?,?,?,?,?,?,?)",
             (
@@ -219,3 +255,41 @@ def confirm_assignment(case_ref, driver, confirmation):
             ),
         )
     return {"case_id": initial.case_id, "driver": driver, "status": "ASSIGNED"}
+
+
+def record_unavailable(case_ref, driver, confirmation):
+    """Record a dispatcher's report of a refusal or a cancellation before collection."""
+    case_id = case_ref.rpartition("-")[0]
+    if confirmation != f"UNAVAILABLE {case_id} {driver}":
+        raise ValueError("Exact dispatcher confirmation of the volunteer's refusal is required.")
+
+    def check(snapshot):
+        report = snapshot.rank(snapshot.screen()["driver_ids"])
+        booked = report.get("assignment")
+        if booked and booked["driver"] == driver and snapshot.case.as_of < booked["pickup_at"]:
+            return booked
+        if not any(option["driver"] == driver for option in report["candidates"]):
+            raise ValueError(
+                "Only a proposed driver or the assigned driver before pickup can be marked unavailable."
+            )
+        return None
+
+    check(from_reference(case_ref))
+    with ledger.write_transaction() as conn:
+        snapshot = from_reference(case_ref, conn)
+        booked = check(snapshot)
+        ledger.advance_clock(conn, snapshot.board.service_date, snapshot.case.as_of)
+        key = (snapshot.board.service_date, case_id, driver)
+        conn.execute(
+            "INSERT INTO unavailable VALUES (?,?,?,?,?)",
+            (
+                *key,
+                booked["pickup_at"] if booked else None,
+                booked["delivered_at"] if booked else None,
+            ),
+        )
+        if booked:
+            conn.execute(
+                "DELETE FROM assignments WHERE service_date=? AND case_id=? AND driver=?", key
+            )
+    return {"case_id": case_id, "driver": driver, "status": "UNAVAILABLE"}

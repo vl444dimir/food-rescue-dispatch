@@ -29,7 +29,13 @@ STATUSES = {"PROPOSED", "NO_FEASIBLE_DRIVER", "NEEDS_INFO", "ALREADY_ASSIGNED"}
 @asynccontextmanager
 async def connect(mode):
     env = {"PYTHONPATH": str(ROOT)}
-    env.update({k: os.environ[k] for k in ("DISPATCH_DATA", "DISPATCH_LEDGER") if k in os.environ})
+    env.update(
+        {
+            k: os.environ[k]
+            for k in ("DISPATCH_DATA", "DISPATCH_LEDGER", "DISPATCH_AT")
+            if k in os.environ
+        }
+    )
     params = StdioServerParameters(
         command=sys.executable, args=[str(ROOT / SERVERS[mode])], cwd=str(ROOT), env=env
     )
@@ -63,6 +69,10 @@ def answer_from_report(report):
     if "error" in report:
         return "Unable to verify. " + report["error"]
     line = f"{report['case_id']} | {report['status']} | {report['reason']}"
+    line += (
+        f"\n{report['pickup']} to {report['dropoff']}, load {report['units']}. "
+        f"Board at {clock(report['as_of'])} on {report['service_date']} ({report['timezone']})."
+    )
     if report.get("candidates"):
         p = report["candidates"][0]
         line += (
@@ -70,10 +80,33 @@ def answer_from_report(report):
             f"{clock(p['delivered_at'])}, {p['deadline_slack_min']} min before closing. "
             f"{len(report['candidates'])} feasible of {report['screened']} screened."
         )
+        if len(report["candidates"]) > 1:
+            alt = report["candidates"][1]
+            line += f"\nNext option: {alt['driver']}, delivery {clock(alt['delivered_at'])}."
+        if report["blocked_routes"]:
+            reasons = {
+                "existing_booking": "conflicts with an existing booking",
+                "pickup_deadline": "misses donor closing",
+                "delivery_deadline": "misses recipient closing",
+                "shift_return": "cannot return before shift end",
+                "cold_time_limit": "exceeds the transport limit",
+                "road_unknown": "missing road estimate",
+                "unverified_position": "needs a new check-in",
+            }
+            details = [
+                f"{driver} ({', '.join(reasons.get(r, r) for r in why)})"
+                for driver, why in sorted(report["blocked_routes"].items())
+            ]
+            line += "\nRoutes ruled out or unverified: " + ", ".join(details[:3]) + "."
     if "earliest_possible_delivery" in report:
         line += (
             f" Earliest possible {clock(report['earliest_possible_delivery'])}, "
             f"closing {clock(report['dropoff_deadline'])}."
+        )
+    if booked := report.get("assignment"):
+        line += (
+            f"\nRecorded pickup {clock(booked['pickup_at'])}, "
+            f"delivery {clock(booked['delivered_at'])} with {booked['driver']}."
         )
     return line
 
@@ -87,23 +120,28 @@ def guard(name, args, requested, ref, pool):
         ref is None or args.get("case_ref") != ref
     ):
         return f"Use the observed case_ref {ref}." if ref else "Read the cancellation first."
-    if name == "evaluate_routes" and (pool is None or args.get("driver_ids") != pool):
-        return (
-            "Copy the screened driver_ids exactly: " + str(pool)
-            if pool is not None
-            else "Screen volunteers first."
-        )
+    if name == "evaluate_routes":
+        if pool is None:
+            return "Screen volunteers first."
+        ids = args.get("driver_ids")
+        if (
+            not isinstance(ids, list)
+            or not all(isinstance(i, str) for i in ids)
+            or sorted(ids) != sorted(pool)
+        ):
+            return "Use every screened driver_id exactly once: " + str(pool)
     return None
 
 
 async def review(question, mode, base_url, model, api_key=None):
-    ids = set(re.findall(r"\bR[0-9]{1,12}\b", question))
+    ids = set(re.findall(r"\bR[0-9]{1,12}\b", question.upper()))
     if len(ids) != 1:
         raise ValueError("Specify exactly one pickup ID such as R24.")
     requested = ids.pop()
     messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": question}]
     trace = []
     ref = pool = None
+    refreshes = 0
     headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
     async with connect(mode) as session, httpx.AsyncClient(timeout=240, headers=headers) as http:
         available = {t.name: t for t in (await session.list_tools()).tools}
@@ -119,20 +157,47 @@ async def review(question, mode, base_url, model, api_key=None):
             for name, t in available.items()
         ]
         for turn in range(1, 9):
-            response = await http.post(
-                base_url.rstrip("/") + "/chat/completions",
-                json={
+            try:
+                response = await http.post(
+                    base_url.rstrip("/") + "/chat/completions",
+                    json={
+                        "model": model,
+                        "messages": messages,
+                        "tools": schemas,
+                        "temperature": 0,
+                        "parallel_tool_calls": False,
+                        "max_tokens": 350,
+                    },
+                )
+                response.raise_for_status()
+                message = response.json()["choices"][0]["message"]
+                if not isinstance(message, dict):
+                    raise TypeError("Missing model message")
+                calls = message.get("tool_calls") or []
+                if not isinstance(calls, list) or any(
+                    not isinstance(call, dict)
+                    or not isinstance(call.get("id"), str)
+                    or not isinstance(call.get("function"), dict)
+                    or not isinstance(call["function"].get("name"), str)
+                    for call in calls
+                ):
+                    raise ValueError("Invalid model tool call")
+            except (httpx.HTTPError, KeyError, IndexError, TypeError, ValueError) as exc:
+                detail = (
+                    f"HTTP {exc.response.status_code}"
+                    if isinstance(exc, httpx.HTTPStatusError)
+                    else type(exc).__name__
+                )
+                error = f"Could not obtain a model tool request ({detail}). Check the model endpoint and model ID."
+                return {
+                    "mode": mode,
                     "model": model,
-                    "messages": messages,
-                    "tools": schemas,
-                    "temperature": 0,
-                    "parallel_tool_calls": False,
-                    "max_tokens": 350,
-                },
-            )
-            response.raise_for_status()
-            message = response.json()["choices"][0]["message"]
-            calls = message.get("tool_calls") or []
+                    "question": question,
+                    "calls": trace,
+                    "turns": turn,
+                    "report": {"error": error},
+                    "answer": error,
+                }
             if not calls:
                 messages.append(
                     {
@@ -147,7 +212,7 @@ async def review(question, mode, base_url, model, api_key=None):
             for call in calls:
                 name = call["function"]["name"]
                 try:
-                    args = json.loads(call["function"]["arguments"])
+                    args = json.loads(call["function"].get("arguments"))
                 except (ValueError, TypeError):
                     args = None
                 invalid = (
@@ -166,9 +231,16 @@ async def review(question, mode, base_url, model, api_key=None):
                 if not invalid:
                     if name == "get_cancelled_pickup":
                         ref = value.get("case_ref")
+                        pool = None
                     if name == "screen_volunteers":
                         pool = value.get("driver_ids")
-                    if "error" in value or (
+                    if (
+                        "Dispatch board changed or reference is invalid." in value.get("error", "")
+                        and refreshes < 2
+                    ):
+                        ref = pool = None
+                        refreshes += 1
+                    elif "error" in value or (
                         value.get("case_id") == requested and value.get("status") in STATUSES
                     ):
                         return {
@@ -204,11 +276,18 @@ if __name__ == "__main__":
     parser.add_argument("--model", default=os.getenv("DISPATCH_MODEL", "local-model"))
     parser.add_argument("--trace", action="store_true")
     args = parser.parse_args()
-    result = asyncio.run(
-        review(
-            args.question, args.mode, args.base_url, args.model, os.getenv("DISPATCH_MODEL_API_KEY")
+    try:
+        result = asyncio.run(
+            review(
+                args.question,
+                args.mode,
+                args.base_url,
+                args.model,
+                os.getenv("DISPATCH_MODEL_API_KEY"),
+            )
         )
-    )
+    except ValueError as exc:
+        parser.exit(2, f"{exc}\n")
     if args.trace:
         print(json.dumps(result, indent=2))
     else:

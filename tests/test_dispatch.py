@@ -1,12 +1,15 @@
 import json
 import os
+import random
+import sqlite3
 import tempfile
 import unittest
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import closing
 from pathlib import Path
 from unittest.mock import patch
 
-from food_rescue.ledger import load_day
+from food_rescue.ledger import TABLE, load_day
 from food_rescue.model import Board, Driver, Pickup
 from food_rescue.routing import Booking, exclusion, route_for_driver
 from food_rescue.service import (
@@ -15,6 +18,7 @@ from food_rescue.service import (
     confirm_assignment,
     evaluate,
     from_reference,
+    record_unavailable,
 )
 
 
@@ -52,6 +56,79 @@ def travel(origin, destination):
 
 
 class RoutingTests(unittest.TestCase):
+    def test_earliest_route_against_minute_by_minute_enumeration(self):
+        rng = random.Random(24)
+        locations = ("home", "donor", "pantry", "stop")
+        for scenario in range(400):
+            roads = {
+                (a, b): rng.randint(1, 12) if a != b else 0 for a in locations for b in locations
+            }
+            stop_at = rng.randint(507, 537)
+            stop_end = stop_at + rng.randint(2, 8)
+            deadline = rng.randint(540, 565)
+            donor_close = rng.randint(515, 549)
+            opens = rng.randint(512, 539)
+            limit = rng.randint(5, 25)
+            handle = rng.randint(1, 5)
+            case = pickup(
+                pickup_window=[500, donor_close],
+                dropoff_window=[opens, deadline],
+                max_onboard=limit,
+            )
+            d = driver(shifts=[[490, 565]])
+            # Independently enumerate every loading minute, both sides of the fixed stop.
+            feasible = []
+            for start in range(500, donor_close - handle + 1):
+                loaded = start + handle
+                delivered = max(loaded + roads["donor", "pantry"], opens) + handle
+                if delivered > deadline or delivered - loaded > limit:
+                    continue
+                before = (
+                    500 + roads["home", "donor"] <= start
+                    and delivered + roads["pantry", "stop"] <= stop_at
+                    and stop_end + roads["stop", "home"] <= 565
+                )
+                after = (
+                    500 + roads["home", "stop"] <= stop_at
+                    and stop_end + roads["stop", "donor"] <= start
+                    and delivered + roads["pantry", "home"] <= 565
+                )
+                if before or after:
+                    feasible.append(delivered)
+            plan, _ = route_for_driver(
+                d,
+                case,
+                handle,
+                lambda a, b, table=roads: table[a, b],
+                [Booking("stop", stop_at, "stop", stop_end)],
+            )
+            with self.subTest(scenario=scenario):
+                self.assertEqual(
+                    plan["delivered_at"] if plan else None, min(feasible, default=None)
+                )
+
+    def test_prior_booking_invalidates_older_checkin(self):
+        booking = [Booking("donor", 470, "pantry", 499)]
+        case = pickup(pickup_window=[480, 506])
+        plan, reason = route_for_driver(
+            driver(position="donor", last_seen=490), case, 5, travel, booking
+        )
+        self.assertIsNone(plan)
+        self.assertEqual(reason, ["unverified_position"])
+        self.assertIsNotNone(
+            route_for_driver(driver(position="donor", last_seen=500), case, 5, travel, booking)[0]
+        )
+
+    def test_fixed_booking_duration_must_cover_travel(self):
+        fixed = [Booking("home", 503, "pantry", 505)]
+        plan, why = route_for_driver(driver(), pickup(), 5, travel, fixed)
+        self.assertIsNone(plan)
+        self.assertIn("existing_booking", why)
+        ongoing = [Booking("home", 499, "pantry", 501)]
+        self.assertEqual(
+            route_for_driver(driver(), pickup(), 5, travel, ongoing), (None, ["existing_booking"])
+        )
+
     def test_delivery_and_exact_shift_boundary(self):
         plan, reasons = route_for_driver(
             driver(shifts=[[400, 540]]), pickup(dropoff_window=[450, 530]), 5, travel, []
@@ -106,7 +183,12 @@ class DispatchTests(unittest.TestCase):
         for name in ("dispatch.json", "roads.json"):
             (self.folder / name).write_bytes((ROOT / "examples" / name).read_bytes())
         env = patch.dict(
-            os.environ, {"DISPATCH_DATA": str(self.folder), "DISPATCH_LEDGER": str(self.ledger)}
+            os.environ,
+            {
+                "DISPATCH_DATA": str(self.folder),
+                "DISPATCH_LEDGER": str(self.ledger),
+                "DISPATCH_AT": "",
+            },
         )
         env.start()
         self.addCleanup(env.stop)
@@ -160,6 +242,92 @@ class DispatchTests(unittest.TestCase):
         self.edit("roads.json", missing)
         self.assertEqual(self.report("R24")["status"], "NEEDS_INFO")
 
+    def test_known_deadline_beats_missing_cold_policy(self):
+        self.edit("dispatch.json", lambda b: b["cases"]["R25"].update(max_onboard=None))
+        self.assertEqual(self.report("R25")["status"], "NO_FEASIBLE_DRIVER")
+
+    def test_time_change_invalidates_proposal_and_rechecks_deadline(self):
+        ref = self.report("R24")["case_ref"]
+        with patch.dict(os.environ, {"DISPATCH_AT": "16:50"}):
+            with self.assertRaisesRegex(ValueError, "changed"):
+                confirm_assignment(ref, "V20", "ASSIGN R24 V20")
+            later = self.report("R24")
+            self.assertEqual(later["status"], "NO_FEASIBLE_DRIVER")
+            self.assertEqual(later["earliest_possible_delivery"], 1047)
+        self.assertFalse(self.ledger.exists())
+        for clock in ("15:29", "25:01", "16:78"):
+            with patch.dict(os.environ, {"DISPATCH_AT": clock}), self.assertRaises(ValueError):
+                Snapshot("R24")
+
+    def test_no_cold_carriers_is_decisive_even_without_checkins_or_policy(self):
+        def no_cold(board):
+            for d in board["drivers"].values():
+                d.update(cold_carrier=False, last_seen=None)
+
+        self.edit("dispatch.json", no_cold)
+        self.assertEqual(self.report("R26")["status"], "NO_FEASIBLE_DRIVER")
+
+    def test_decline_promotes_backup_for_only_this_case(self):
+        self.edit("dispatch.json", lambda b: b["cases"].update(R89=b["cases"]["R24"]))
+        ref = self.report("R24")["case_ref"]
+        with self.assertRaisesRegex(ValueError, "confirmation"):
+            record_unavailable(ref, "V20", "yes")
+        self.assertFalse(self.ledger.exists())
+        record_unavailable(ref, "V20", "UNAVAILABLE R24 V20")
+        next_report = self.report("R24")
+        self.assertEqual(next_report["candidates"][0]["driver"], "V29")
+        self.assertEqual(next_report["excluded"]["reported_unavailable"], 1)
+        self.assertEqual(self.report("R89")["candidates"][0]["driver"], "V20")
+        with self.assertRaisesRegex(ValueError, "changed"):
+            confirm_assignment(ref, "V20", "ASSIGN R24 V20")
+        confirm_assignment(next_report["case_ref"], "V29", "ASSIGN R24 V29")
+        self.assertEqual(self.report("R24")["assignment"]["driver"], "V29")
+
+    def test_release_only_own_booking_before_pickup_and_free_driver(self):
+        self.edit("dispatch.json", lambda b: b["cases"].update(R89=b["cases"]["R24"]))
+        confirm_assignment(Snapshot("R24").ref, "V20", "ASSIGN R24 V20")
+        assigned = self.report("R24")
+        with self.assertRaisesRegex(ValueError, "assigned driver"):
+            record_unavailable(assigned["case_ref"], "V29", "UNAVAILABLE R24 V29")
+        record_unavailable(assigned["case_ref"], "V20", "UNAVAILABLE R24 V20")
+        self.assertEqual(self.report("R89")["candidates"][0]["driver"], "V20")
+        next_report = self.report("R24")
+        self.assertEqual(next_report["candidates"][0]["driver"], "V29")
+        confirm_assignment(next_report["case_ref"], "V29", "ASSIGN R24 V29")
+        self.edit("dispatch.json", lambda b: b["cases"]["R24"].update(as_of=958))
+        with self.assertRaisesRegex(ValueError, "before pickup"):
+            record_unavailable(Snapshot("R24").ref, "V29", "UNAVAILABLE R24 V29")
+        self.assertEqual(len(load_day("2026-11-20")), 1)
+
+    def test_racing_decline_and_accept_respect_snapshot(self):
+        ref = Snapshot("R24").ref
+
+        def commit(command):
+            try:
+                op = confirm_assignment if command == "ASSIGN" else record_unavailable
+                return op(ref, "V20", f"{command} R24 V20")["status"]
+            except ValueError:
+                return "REJECTED"
+
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            results = list(pool.map(commit, ("ASSIGN", "UNAVAILABLE")))
+        self.assertEqual(results.count("REJECTED"), 1)
+        report = self.report("R24")
+        if "ASSIGNED" in results:
+            self.assertEqual(report["assignment"]["driver"], "V20")
+        else:
+            self.assertEqual(report["candidates"][0]["driver"], "V29")
+
+    def test_cannot_rewind_after_a_later_confirmation(self):
+        with patch.dict(os.environ, {"DISPATCH_AT": "15:32"}):
+            confirm_assignment(Snapshot("R24").ref, "V20", "ASSIGN R24 V20")
+        self.assertEqual(self.report("R24")["as_of"], 932)
+        with (
+            patch.dict(os.environ, {"DISPATCH_AT": "15:31"}),
+            self.assertRaisesRegex(ValueError, "last recorded change"),
+        ):
+            Snapshot("R24")
+
     def test_no_verified_positions(self):
         def stale(board):
             for row in board["drivers"].values():
@@ -167,6 +335,23 @@ class DispatchTests(unittest.TestCase):
 
         self.edit("dispatch.json", stale)
         self.assertEqual(self.report("R24")["status"], "NEEDS_INFO")
+
+    def test_existing_assignment_only_database_upgrades_on_confirmed_change(self):
+        with closing(sqlite3.connect(self.ledger)) as conn, conn:
+            conn.execute(TABLE)
+            conn.execute(
+                "INSERT INTO assignments VALUES (?,?,?,?,?,?,?)",
+                ("2026-11-20", "R24", "V20", "P24", 950, "D24", 987),
+            )
+        assigned = self.report("R24")
+        self.assertEqual(assigned["assignment"]["driver"], "V20")
+        with closing(sqlite3.connect(self.ledger)) as conn:
+            self.assertEqual(
+                conn.execute("SELECT name FROM sqlite_master WHERE type='table'").fetchall(),
+                [("assignments",)],
+            )
+        record_unavailable(assigned["case_ref"], "V20", "UNAVAILABLE R24 V20")
+        self.assertEqual(self.report("R24")["candidates"][0]["driver"], "V29")
 
     def test_deliberate_confirmation_and_cross_case_invalidation(self):
         self.edit("dispatch.json", lambda b: b["cases"].update(R89=b["cases"]["R24"]))

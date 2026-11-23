@@ -6,15 +6,38 @@ import json
 import os
 import tempfile
 from pathlib import Path
+from time import perf_counter
 from unittest.mock import patch
 
 import httpx
 from mcp.shared.exceptions import McpError
 
 from agent import review
+from food_rescue.service import Snapshot, record_unavailable
+
+CASES = (
+    ("R24", "baseline"),
+    ("R25", "tight_window"),
+    ("R26", "missing_policy"),
+    ("R999", "unknown"),
+    ("R24", "declined"),
+    ("R24", "late"),
+)
 
 
-def expected(case_id, report):
+def expected(case_id, report, scenario):
+    if scenario == "declined":
+        p = (report.get("candidates") or [{}])[0]
+        return (report.get("status"), p.get("driver"), p.get("delivered_at")) == (
+            "PROPOSED",
+            "V29",
+            995,
+        )
+    if scenario == "late":
+        return (report.get("status"), report.get("earliest_possible_delivery")) == (
+            "NO_FEASIBLE_DRIVER",
+            1047,
+        )
     if case_id == "R24":
         candidates = report.get("candidates") or [{}]
         return (
@@ -42,17 +65,24 @@ async def compare(url, model, rounds, output):
             {
                 "DISPATCH_LEDGER": str(Path(folder) / "assignments.sqlite3"),
                 "DISPATCH_DATA": str(Path(__file__).resolve().parent / "examples"),
+                "DISPATCH_AT": "",
             },
         ),
     ):
         for index in range(rounds):
-            for offset, case in enumerate(("R24", "R25", "R26", "R999")):
+            for offset, (case, scenario) in enumerate(CASES):
+                # The two modes share this single precondition and never mutate it.
+                os.environ["DISPATCH_LEDGER"] = str(Path(folder) / f"{index}-{scenario}.sqlite3")
+                os.environ["DISPATCH_AT"] = "16:50" if scenario == "late" else ""
+                if scenario == "declined":
+                    record_unavailable(Snapshot(case).ref, "V20", "UNAVAILABLE R24 V20")
                 modes = ["composed", "individual"]
                 if (offset + index) % 2:
                     modes.reverse()
                 pair = []
                 question = f"Who can cover pickup {case}?"
                 for mode in modes:
+                    started = perf_counter()
                     try:
                         run = await review(
                             question, mode, url, model, os.getenv("DISPATCH_MODEL_API_KEY")
@@ -73,13 +103,15 @@ async def compare(url, model, rounds, output):
                             "report": {"error": str(exc)},
                         }
                     run.update(
+                        elapsed_seconds=round(perf_counter() - started, 2),
                         round=index + 1,
                         case=case,
-                        passed_expected_result=expected(case, run["report"]),
+                        scenario=scenario,
+                        passed_expected_result=expected(case, run["report"], scenario),
                     )
                     count = sum(c["dispatched"] for c in run["calls"])
                     print(
-                        f"Round {index + 1} {case} {mode}: {count} MCP calls, pass={run['passed_expected_result']}",
+                        f"Round {index + 1} {case} {scenario} {mode}: {count} MCP calls, pass={run['passed_expected_result']}",
                         flush=True,
                     )
                     pair.append(run)

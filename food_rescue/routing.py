@@ -22,16 +22,16 @@ def exclusion(driver_id, driver, case, fresh_for):
         return "off_shift"
     if driver.capacity - driver.load < case.units:
         return "capacity"
+    if case.perishable and driver.cold_carrier is False:
+        return "cold_carrier_unavailable"
     if (
         driver.position is None
         or driver.last_seen is None
         or not 0 <= case.as_of - driver.last_seen <= fresh_for
     ):
         return "unverified_position"
-    if case.perishable and driver.cold_carrier is not True:
-        return (
-            "unverified_cold_carrier" if driver.cold_carrier is None else "cold_carrier_unavailable"
-        )
+    if case.perishable and driver.cold_carrier is None:
+        return "unverified_cold_carrier"
     return None
 
 
@@ -39,12 +39,25 @@ def route_for_driver(driver, case, handling, matrix, reservations):
     shift_end = next(end for start, end in driver.shifts if start <= case.as_of < end)
     fixed = [Booking(s.place, s.start, s.place, s.end) for s in driver.stops]
     fixed.extend(reservations)
+    if any(driver.last_seen < stop.end <= case.as_of for stop in fixed):
+        return None, ["unverified_position"]
     fixed = sorted(
         (s for s in fixed if s.end > case.as_of and s.start < shift_end), key=lambda s: s.start
     )
     start_at, origin = case.as_of, driver.position
     if fixed and fixed[0].start < start_at:
         current = fixed.pop(0)
+        try:
+            if driver.last_seen < current.start:
+                if driver.last_seen + matrix(origin, current.origin) > current.start:
+                    return None, ["existing_booking"]
+                arrival = current.start + matrix(current.origin, current.destination)
+            else:
+                arrival = driver.last_seen + matrix(origin, current.destination)
+        except Infeasible as exc:
+            return None, [str(exc)]
+        if arrival > current.end:
+            return None, ["existing_booking"]
         start_at, origin = current.end, current.destination
 
     def simulate(slot):
@@ -77,7 +90,10 @@ def route_for_driver(driver, case, handling, matrix, reservations):
                 if at + travel > stop.start:
                     raise Infeasible("existing_booking")
                 if stop.origin != stop.destination:
-                    driving += matrix(stop.origin, stop.destination)
+                    booked_drive = matrix(stop.origin, stop.destination)
+                    if stop.start + booked_drive > stop.end:
+                        raise Infeasible("existing_booking")
+                    driving += booked_drive
                 at, place = stop.end, stop.destination
         home = matrix(place, driver.return_to)
         if at + home > shift_end:

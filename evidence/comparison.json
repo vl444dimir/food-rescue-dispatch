@@ -13,6 +13,8 @@
         "result": {
           "case_id": "R24",
           "case_ref": "R24-3793bb140b78",
+          "pickup": "P24",
+          "dropoff": "D24",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -30,6 +32,15 @@
           "route_failures": {
             "existing_booking": 2,
             "pickup_deadline": 1
+          },
+          "blocked_routes": {
+            "V13": [
+              "existing_booking",
+              "pickup_deadline"
+            ],
+            "V27": [
+              "existing_booking"
+            ]
           },
           "candidates": [
             {
@@ -103,6 +114,8 @@
     "report": {
       "case_id": "R24",
       "case_ref": "R24-3793bb140b78",
+      "pickup": "P24",
+      "dropoff": "D24",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -120,6 +133,15 @@
       "route_failures": {
         "existing_booking": 2,
         "pickup_deadline": 1
+      },
+      "blocked_routes": {
+        "V13": [
+          "existing_booking",
+          "pickup_deadline"
+        ],
+        "V27": [
+          "existing_booking"
+        ]
       },
       "candidates": [
         {
@@ -187,9 +209,11 @@
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.",
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 4.56,
     "round": 1,
     "case": "R24",
+    "scenario": "baseline",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -259,6 +283,8 @@
         "result": {
           "case_id": "R24",
           "case_ref": "R24-3793bb140b78",
+          "pickup": "P24",
+          "dropoff": "D24",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -276,6 +302,15 @@
           "route_failures": {
             "existing_booking": 2,
             "pickup_deadline": 1
+          },
+          "blocked_routes": {
+            "V13": [
+              "existing_booking",
+              "pickup_deadline"
+            ],
+            "V27": [
+              "existing_booking"
+            ]
           },
           "candidates": [
             {
@@ -349,6 +384,8 @@
     "report": {
       "case_id": "R24",
       "case_ref": "R24-3793bb140b78",
+      "pickup": "P24",
+      "dropoff": "D24",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -366,6 +403,15 @@
       "route_failures": {
         "existing_booking": 2,
         "pickup_deadline": 1
+      },
+      "blocked_routes": {
+        "V13": [
+          "existing_booking",
+          "pickup_deadline"
+        ],
+        "V27": [
+          "existing_booking"
+        ]
       },
       "candidates": [
         {
@@ -433,9 +479,11 @@
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.",
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 24.93,
     "round": 1,
     "case": "R24",
+    "scenario": "baseline",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -506,6 +554,8 @@
         "result": {
           "case_id": "R25",
           "case_ref": "R25-3793bb140b78",
+          "pickup": "P25",
+          "dropoff": "D25",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -520,6 +570,7 @@
             "unverified_position": 1
           },
           "route_failures": {},
+          "blocked_routes": {},
           "candidates": [],
           "road_source": "OSRM driving / OpenStreetMap",
           "status": "NO_FEASIBLE_DRIVER",
@@ -532,6 +583,8 @@
     "report": {
       "case_id": "R25",
       "case_ref": "R25-3793bb140b78",
+      "pickup": "P25",
+      "dropoff": "D25",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -546,15 +599,18 @@
         "unverified_position": 1
       },
       "route_failures": {},
+      "blocked_routes": {},
       "candidates": [],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "NO_FEASIBLE_DRIVER",
       "reason": "Even a driver already at the donor would finish delivery after closing.",
       "earliest_possible_delivery": 962
     },
-    "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing. Earliest possible 16:02, closing 15:40.",
+    "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP25 to D25, load 1. Board at 15:30 on 2026-11-20 (America/New_York). Earliest possible 16:02, closing 15:40.",
+    "elapsed_seconds": 28.01,
     "round": 1,
     "case": "R25",
+    "scenario": "tight_window",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -572,6 +628,8 @@
         "result": {
           "case_id": "R25",
           "case_ref": "R25-3793bb140b78",
+          "pickup": "P25",
+          "dropoff": "D25",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -586,6 +644,7 @@
             "unverified_position": 1
           },
           "route_failures": {},
+          "blocked_routes": {},
           "candidates": [],
           "road_source": "OSRM driving / OpenStreetMap",
           "status": "NO_FEASIBLE_DRIVER",
@@ -598,6 +657,8 @@
     "report": {
       "case_id": "R25",
       "case_ref": "R25-3793bb140b78",
+      "pickup": "P25",
+      "dropoff": "D25",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -612,15 +673,18 @@
         "unverified_position": 1
       },
       "route_failures": {},
+      "blocked_routes": {},
       "candidates": [],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "NO_FEASIBLE_DRIVER",
       "reason": "Even a driver already at the donor would finish delivery after closing.",
       "earliest_possible_delivery": 962
     },
-    "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing. Earliest possible 16:02, closing 15:40.",
+    "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP25 to D25, load 1. Board at 15:30 on 2026-11-20 (America/New_York). Earliest possible 16:02, closing 15:40.",
+    "elapsed_seconds": 6.98,
     "round": 1,
     "case": "R25",
+    "scenario": "tight_window",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -638,6 +702,8 @@
         "result": {
           "case_id": "R26",
           "case_ref": "R26-3793bb140b78",
+          "pickup": "P26",
+          "dropoff": "D26",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -652,6 +718,7 @@
             "unverified_position": 1
           },
           "route_failures": {},
+          "blocked_routes": {},
           "candidates": [],
           "road_source": "OSRM driving / OpenStreetMap",
           "status": "NEEDS_INFO",
@@ -663,6 +730,8 @@
     "report": {
       "case_id": "R26",
       "case_ref": "R26-3793bb140b78",
+      "pickup": "P26",
+      "dropoff": "D26",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -677,14 +746,17 @@
         "unverified_position": 1
       },
       "route_failures": {},
+      "blocked_routes": {},
       "candidates": [],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "NEEDS_INFO",
       "reason": "Missing transport time limit for perishable goods."
     },
-    "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.",
+    "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.\nP26 to D26, load 1. Board at 15:30 on 2026-11-20 (America/New_York).",
+    "elapsed_seconds": 6.07,
     "round": 1,
     "case": "R26",
+    "scenario": "missing_policy",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -755,6 +827,8 @@
         "result": {
           "case_id": "R26",
           "case_ref": "R26-3793bb140b78",
+          "pickup": "P26",
+          "dropoff": "D26",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -769,6 +843,7 @@
             "unverified_position": 1
           },
           "route_failures": {},
+          "blocked_routes": {},
           "candidates": [],
           "road_source": "OSRM driving / OpenStreetMap",
           "status": "NEEDS_INFO",
@@ -780,6 +855,8 @@
     "report": {
       "case_id": "R26",
       "case_ref": "R26-3793bb140b78",
+      "pickup": "P26",
+      "dropoff": "D26",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -794,14 +871,17 @@
         "unverified_position": 1
       },
       "route_failures": {},
+      "blocked_routes": {},
       "candidates": [],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "NEEDS_INFO",
       "reason": "Missing transport time limit for perishable goods."
     },
-    "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.",
+    "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.\nP26 to D26, load 1. Board at 15:30 on 2026-11-20 (America/New_York).",
+    "elapsed_seconds": 29.28,
     "round": 1,
     "case": "R26",
+    "scenario": "missing_policy",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -826,8 +906,10 @@
       "error": "Error executing tool get_cancelled_pickup: Unknown cancellation R999."
     },
     "answer": "Unable to verify. Error executing tool get_cancelled_pickup: Unknown cancellation R999.",
+    "elapsed_seconds": 10.84,
     "round": 1,
     "case": "R999",
+    "scenario": "unknown",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -852,8 +934,647 @@
       "error": "Error executing tool plan_rescue: Unknown cancellation R999."
     },
     "answer": "Unable to verify. Error executing tool plan_rescue: Unknown cancellation R999.",
+    "elapsed_seconds": 7.26,
     "round": 1,
     "case": "R999",
+    "scenario": "unknown",
+    "passed_expected_result": true,
+    "same_outcome": true
+  },
+  {
+    "mode": "composed",
+    "model": "Qwen3-4B-Instruct-2507",
+    "question": "Who can cover pickup R24?",
+    "calls": [
+      {
+        "tool": "plan_rescue",
+        "arguments": {
+          "case_id": "R24"
+        },
+        "dispatched": true,
+        "result": {
+          "case_id": "R24",
+          "case_ref": "R24-71f45b3922a4",
+          "pickup": "P24",
+          "dropoff": "D24",
+          "as_of": 930,
+          "service_date": "2026-11-20",
+          "timezone": "America/New_York",
+          "dropoff_deadline": 1020,
+          "units": 3,
+          "screened": 50,
+          "eligible": 7,
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "reported_unavailable": 1,
+            "unverified_position": 1
+          },
+          "route_failures": {
+            "existing_booking": 2,
+            "pickup_deadline": 1
+          },
+          "blocked_routes": {
+            "V13": [
+              "existing_booking",
+              "pickup_deadline"
+            ],
+            "V27": [
+              "existing_booking"
+            ]
+          },
+          "candidates": [
+            {
+              "driver": "V29",
+              "pickup_at": 958,
+              "pickup_done": 963,
+              "delivered_at": 995,
+              "deadline_slack_min": 25,
+              "shift_return_at": 1011,
+              "road_minutes_full_tour": 71,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V32",
+              "pickup_at": 959,
+              "pickup_done": 964,
+              "delivered_at": 996,
+              "deadline_slack_min": 24,
+              "shift_return_at": 1007,
+              "road_minutes_full_tour": 67,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V22",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1008,
+              "road_minutes_full_tour": 68,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V19",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1019,
+              "road_minutes_full_tour": 79,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V33",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1023,
+              "road_minutes_full_tour": 83,
+              "bookings_before_pickup": 0
+            }
+          ],
+          "road_source": "OSRM driving / OpenStreetMap",
+          "status": "PROPOSED",
+          "reason": "Dispatcher and volunteer confirmation required."
+        }
+      }
+    ],
+    "turns": 1,
+    "report": {
+      "case_id": "R24",
+      "case_ref": "R24-71f45b3922a4",
+      "pickup": "P24",
+      "dropoff": "D24",
+      "as_of": 930,
+      "service_date": "2026-11-20",
+      "timezone": "America/New_York",
+      "dropoff_deadline": 1020,
+      "units": 3,
+      "screened": 50,
+      "eligible": 7,
+      "excluded": {
+        "cancelled_original": 1,
+        "capacity": 1,
+        "cold_carrier_unavailable": 1,
+        "off_shift": 38,
+        "reported_unavailable": 1,
+        "unverified_position": 1
+      },
+      "route_failures": {
+        "existing_booking": 2,
+        "pickup_deadline": 1
+      },
+      "blocked_routes": {
+        "V13": [
+          "existing_booking",
+          "pickup_deadline"
+        ],
+        "V27": [
+          "existing_booking"
+        ]
+      },
+      "candidates": [
+        {
+          "driver": "V29",
+          "pickup_at": 958,
+          "pickup_done": 963,
+          "delivered_at": 995,
+          "deadline_slack_min": 25,
+          "shift_return_at": 1011,
+          "road_minutes_full_tour": 71,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V32",
+          "pickup_at": 959,
+          "pickup_done": 964,
+          "delivered_at": 996,
+          "deadline_slack_min": 24,
+          "shift_return_at": 1007,
+          "road_minutes_full_tour": 67,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V22",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1008,
+          "road_minutes_full_tour": 68,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V19",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1019,
+          "road_minutes_full_tour": 79,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V33",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1023,
+          "road_minutes_full_tour": 83,
+          "bookings_before_pickup": 0
+        }
+      ],
+      "road_source": "OSRM driving / OpenStreetMap",
+      "status": "PROPOSED",
+      "reason": "Dispatcher and volunteer confirmation required."
+    },
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 4.85,
+    "round": 1,
+    "case": "R24",
+    "scenario": "declined",
+    "passed_expected_result": true,
+    "same_outcome": true
+  },
+  {
+    "mode": "individual",
+    "model": "Qwen3-4B-Instruct-2507",
+    "question": "Who can cover pickup R24?",
+    "calls": [
+      {
+        "tool": "get_cancelled_pickup",
+        "arguments": {
+          "case_id": "R24"
+        },
+        "dispatched": true,
+        "result": {
+          "case_ref": "R24-71f45b3922a4",
+          "case_id": "R24",
+          "as_of": 930,
+          "units": 3,
+          "pickup": "P24",
+          "dropoff": "D24",
+          "deadline": 1020
+        }
+      },
+      {
+        "tool": "screen_volunteers",
+        "arguments": {
+          "case_ref": "R24-71f45b3922a4"
+        },
+        "dispatched": true,
+        "result": {
+          "driver_ids": [
+            "V13",
+            "V19",
+            "V22",
+            "V27",
+            "V29",
+            "V32",
+            "V33"
+          ],
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "reported_unavailable": 1,
+            "unverified_position": 1
+          }
+        }
+      },
+      {
+        "tool": "evaluate_routes",
+        "arguments": {
+          "case_ref": "R24-71f45b3922a4",
+          "driver_ids": [
+            "V13",
+            "V19",
+            "V22",
+            "V27",
+            "V29",
+            "V32",
+            "V33"
+          ]
+        },
+        "dispatched": true,
+        "result": {
+          "case_id": "R24",
+          "case_ref": "R24-71f45b3922a4",
+          "pickup": "P24",
+          "dropoff": "D24",
+          "as_of": 930,
+          "service_date": "2026-11-20",
+          "timezone": "America/New_York",
+          "dropoff_deadline": 1020,
+          "units": 3,
+          "screened": 50,
+          "eligible": 7,
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "reported_unavailable": 1,
+            "unverified_position": 1
+          },
+          "route_failures": {
+            "existing_booking": 2,
+            "pickup_deadline": 1
+          },
+          "blocked_routes": {
+            "V13": [
+              "existing_booking",
+              "pickup_deadline"
+            ],
+            "V27": [
+              "existing_booking"
+            ]
+          },
+          "candidates": [
+            {
+              "driver": "V29",
+              "pickup_at": 958,
+              "pickup_done": 963,
+              "delivered_at": 995,
+              "deadline_slack_min": 25,
+              "shift_return_at": 1011,
+              "road_minutes_full_tour": 71,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V32",
+              "pickup_at": 959,
+              "pickup_done": 964,
+              "delivered_at": 996,
+              "deadline_slack_min": 24,
+              "shift_return_at": 1007,
+              "road_minutes_full_tour": 67,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V22",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1008,
+              "road_minutes_full_tour": 68,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V19",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1019,
+              "road_minutes_full_tour": 79,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V33",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1023,
+              "road_minutes_full_tour": 83,
+              "bookings_before_pickup": 0
+            }
+          ],
+          "road_source": "OSRM driving / OpenStreetMap",
+          "status": "PROPOSED",
+          "reason": "Dispatcher and volunteer confirmation required."
+        }
+      }
+    ],
+    "turns": 3,
+    "report": {
+      "case_id": "R24",
+      "case_ref": "R24-71f45b3922a4",
+      "pickup": "P24",
+      "dropoff": "D24",
+      "as_of": 930,
+      "service_date": "2026-11-20",
+      "timezone": "America/New_York",
+      "dropoff_deadline": 1020,
+      "units": 3,
+      "screened": 50,
+      "eligible": 7,
+      "excluded": {
+        "cancelled_original": 1,
+        "capacity": 1,
+        "cold_carrier_unavailable": 1,
+        "off_shift": 38,
+        "reported_unavailable": 1,
+        "unverified_position": 1
+      },
+      "route_failures": {
+        "existing_booking": 2,
+        "pickup_deadline": 1
+      },
+      "blocked_routes": {
+        "V13": [
+          "existing_booking",
+          "pickup_deadline"
+        ],
+        "V27": [
+          "existing_booking"
+        ]
+      },
+      "candidates": [
+        {
+          "driver": "V29",
+          "pickup_at": 958,
+          "pickup_done": 963,
+          "delivered_at": 995,
+          "deadline_slack_min": 25,
+          "shift_return_at": 1011,
+          "road_minutes_full_tour": 71,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V32",
+          "pickup_at": 959,
+          "pickup_done": 964,
+          "delivered_at": 996,
+          "deadline_slack_min": 24,
+          "shift_return_at": 1007,
+          "road_minutes_full_tour": 67,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V22",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1008,
+          "road_minutes_full_tour": 68,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V19",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1019,
+          "road_minutes_full_tour": 79,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V33",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1023,
+          "road_minutes_full_tour": 83,
+          "bookings_before_pickup": 0
+        }
+      ],
+      "road_source": "OSRM driving / OpenStreetMap",
+      "status": "PROPOSED",
+      "reason": "Dispatcher and volunteer confirmation required."
+    },
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 26.45,
+    "round": 1,
+    "case": "R24",
+    "scenario": "declined",
+    "passed_expected_result": true,
+    "same_outcome": true
+  },
+  {
+    "mode": "individual",
+    "model": "Qwen3-4B-Instruct-2507",
+    "question": "Who can cover pickup R24?",
+    "calls": [
+      {
+        "tool": "get_cancelled_pickup",
+        "arguments": {
+          "case_id": "R24"
+        },
+        "dispatched": true,
+        "result": {
+          "case_ref": "R24-8ba66947e3b4",
+          "case_id": "R24",
+          "as_of": 1010,
+          "units": 3,
+          "pickup": "P24",
+          "dropoff": "D24",
+          "deadline": 1020
+        }
+      },
+      {
+        "tool": "screen_volunteers",
+        "arguments": {
+          "case_ref": "R24-8ba66947e3b4"
+        },
+        "dispatched": true,
+        "result": {
+          "driver_ids": [],
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "unverified_position": 9
+          }
+        }
+      },
+      {
+        "tool": "evaluate_routes",
+        "arguments": {
+          "case_ref": "R24-8ba66947e3b4",
+          "driver_ids": []
+        },
+        "dispatched": true,
+        "result": {
+          "case_id": "R24",
+          "case_ref": "R24-8ba66947e3b4",
+          "pickup": "P24",
+          "dropoff": "D24",
+          "as_of": 1010,
+          "service_date": "2026-11-20",
+          "timezone": "America/New_York",
+          "dropoff_deadline": 1020,
+          "units": 3,
+          "screened": 50,
+          "eligible": 0,
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "unverified_position": 9
+          },
+          "route_failures": {},
+          "blocked_routes": {},
+          "candidates": [],
+          "road_source": "OSRM driving / OpenStreetMap",
+          "status": "NO_FEASIBLE_DRIVER",
+          "reason": "Even a driver already at the donor would finish delivery after closing.",
+          "earliest_possible_delivery": 1047
+        }
+      }
+    ],
+    "turns": 3,
+    "report": {
+      "case_id": "R24",
+      "case_ref": "R24-8ba66947e3b4",
+      "pickup": "P24",
+      "dropoff": "D24",
+      "as_of": 1010,
+      "service_date": "2026-11-20",
+      "timezone": "America/New_York",
+      "dropoff_deadline": 1020,
+      "units": 3,
+      "screened": 50,
+      "eligible": 0,
+      "excluded": {
+        "cancelled_original": 1,
+        "capacity": 1,
+        "cold_carrier_unavailable": 1,
+        "off_shift": 38,
+        "unverified_position": 9
+      },
+      "route_failures": {},
+      "blocked_routes": {},
+      "candidates": [],
+      "road_source": "OSRM driving / OpenStreetMap",
+      "status": "NO_FEASIBLE_DRIVER",
+      "reason": "Even a driver already at the donor would finish delivery after closing.",
+      "earliest_possible_delivery": 1047
+    },
+    "answer": "R24 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP24 to D24, load 3. Board at 16:50 on 2026-11-20 (America/New_York). Earliest possible 17:27, closing 17:00.",
+    "elapsed_seconds": 27.35,
+    "round": 1,
+    "case": "R24",
+    "scenario": "late",
+    "passed_expected_result": true,
+    "same_outcome": true
+  },
+  {
+    "mode": "composed",
+    "model": "Qwen3-4B-Instruct-2507",
+    "question": "Who can cover pickup R24?",
+    "calls": [
+      {
+        "tool": "plan_rescue",
+        "arguments": {
+          "case_id": "R24"
+        },
+        "dispatched": true,
+        "result": {
+          "case_id": "R24",
+          "case_ref": "R24-8ba66947e3b4",
+          "pickup": "P24",
+          "dropoff": "D24",
+          "as_of": 1010,
+          "service_date": "2026-11-20",
+          "timezone": "America/New_York",
+          "dropoff_deadline": 1020,
+          "units": 3,
+          "screened": 50,
+          "eligible": 0,
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "unverified_position": 9
+          },
+          "route_failures": {},
+          "blocked_routes": {},
+          "candidates": [],
+          "road_source": "OSRM driving / OpenStreetMap",
+          "status": "NO_FEASIBLE_DRIVER",
+          "reason": "Even a driver already at the donor would finish delivery after closing.",
+          "earliest_possible_delivery": 1047
+        }
+      }
+    ],
+    "turns": 1,
+    "report": {
+      "case_id": "R24",
+      "case_ref": "R24-8ba66947e3b4",
+      "pickup": "P24",
+      "dropoff": "D24",
+      "as_of": 1010,
+      "service_date": "2026-11-20",
+      "timezone": "America/New_York",
+      "dropoff_deadline": 1020,
+      "units": 3,
+      "screened": 50,
+      "eligible": 0,
+      "excluded": {
+        "cancelled_original": 1,
+        "capacity": 1,
+        "cold_carrier_unavailable": 1,
+        "off_shift": 38,
+        "unverified_position": 9
+      },
+      "route_failures": {},
+      "blocked_routes": {},
+      "candidates": [],
+      "road_source": "OSRM driving / OpenStreetMap",
+      "status": "NO_FEASIBLE_DRIVER",
+      "reason": "Even a driver already at the donor would finish delivery after closing.",
+      "earliest_possible_delivery": 1047
+    },
+    "answer": "R24 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP24 to D24, load 3. Board at 16:50 on 2026-11-20 (America/New_York). Earliest possible 17:27, closing 17:00.",
+    "elapsed_seconds": 8.54,
+    "round": 1,
+    "case": "R24",
+    "scenario": "late",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -923,6 +1644,8 @@
         "result": {
           "case_id": "R24",
           "case_ref": "R24-3793bb140b78",
+          "pickup": "P24",
+          "dropoff": "D24",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -940,6 +1663,15 @@
           "route_failures": {
             "existing_booking": 2,
             "pickup_deadline": 1
+          },
+          "blocked_routes": {
+            "V13": [
+              "existing_booking",
+              "pickup_deadline"
+            ],
+            "V27": [
+              "existing_booking"
+            ]
           },
           "candidates": [
             {
@@ -1013,6 +1745,8 @@
     "report": {
       "case_id": "R24",
       "case_ref": "R24-3793bb140b78",
+      "pickup": "P24",
+      "dropoff": "D24",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -1030,6 +1764,15 @@
       "route_failures": {
         "existing_booking": 2,
         "pickup_deadline": 1
+      },
+      "blocked_routes": {
+        "V13": [
+          "existing_booking",
+          "pickup_deadline"
+        ],
+        "V27": [
+          "existing_booking"
+        ]
       },
       "candidates": [
         {
@@ -1097,9 +1840,11 @@
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.",
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 57.22,
     "round": 2,
     "case": "R24",
+    "scenario": "baseline",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -1117,6 +1862,8 @@
         "result": {
           "case_id": "R24",
           "case_ref": "R24-3793bb140b78",
+          "pickup": "P24",
+          "dropoff": "D24",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -1134,6 +1881,15 @@
           "route_failures": {
             "existing_booking": 2,
             "pickup_deadline": 1
+          },
+          "blocked_routes": {
+            "V13": [
+              "existing_booking",
+              "pickup_deadline"
+            ],
+            "V27": [
+              "existing_booking"
+            ]
           },
           "candidates": [
             {
@@ -1207,6 +1963,8 @@
     "report": {
       "case_id": "R24",
       "case_ref": "R24-3793bb140b78",
+      "pickup": "P24",
+      "dropoff": "D24",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -1224,6 +1982,15 @@
       "route_failures": {
         "existing_booking": 2,
         "pickup_deadline": 1
+      },
+      "blocked_routes": {
+        "V13": [
+          "existing_booking",
+          "pickup_deadline"
+        ],
+        "V27": [
+          "existing_booking"
+        ]
       },
       "candidates": [
         {
@@ -1291,9 +2058,11 @@
       "status": "PROPOSED",
       "reason": "Dispatcher and volunteer confirmation required."
     },
-    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.",
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.\nNext option: V29, delivery 16:35.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 8.79,
     "round": 2,
     "case": "R24",
+    "scenario": "baseline",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -1311,6 +2080,8 @@
         "result": {
           "case_id": "R25",
           "case_ref": "R25-3793bb140b78",
+          "pickup": "P25",
+          "dropoff": "D25",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -1325,6 +2096,7 @@
             "unverified_position": 1
           },
           "route_failures": {},
+          "blocked_routes": {},
           "candidates": [],
           "road_source": "OSRM driving / OpenStreetMap",
           "status": "NO_FEASIBLE_DRIVER",
@@ -1337,6 +2109,8 @@
     "report": {
       "case_id": "R25",
       "case_ref": "R25-3793bb140b78",
+      "pickup": "P25",
+      "dropoff": "D25",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -1351,15 +2125,18 @@
         "unverified_position": 1
       },
       "route_failures": {},
+      "blocked_routes": {},
       "candidates": [],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "NO_FEASIBLE_DRIVER",
       "reason": "Even a driver already at the donor would finish delivery after closing.",
       "earliest_possible_delivery": 962
     },
-    "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing. Earliest possible 16:02, closing 15:40.",
+    "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP25 to D25, load 1. Board at 15:30 on 2026-11-20 (America/New_York). Earliest possible 16:02, closing 15:40.",
+    "elapsed_seconds": 13.36,
     "round": 2,
     "case": "R25",
+    "scenario": "tight_window",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -1430,6 +2207,8 @@
         "result": {
           "case_id": "R25",
           "case_ref": "R25-3793bb140b78",
+          "pickup": "P25",
+          "dropoff": "D25",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -1444,6 +2223,7 @@
             "unverified_position": 1
           },
           "route_failures": {},
+          "blocked_routes": {},
           "candidates": [],
           "road_source": "OSRM driving / OpenStreetMap",
           "status": "NO_FEASIBLE_DRIVER",
@@ -1456,6 +2236,8 @@
     "report": {
       "case_id": "R25",
       "case_ref": "R25-3793bb140b78",
+      "pickup": "P25",
+      "dropoff": "D25",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -1470,15 +2252,18 @@
         "unverified_position": 1
       },
       "route_failures": {},
+      "blocked_routes": {},
       "candidates": [],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "NO_FEASIBLE_DRIVER",
       "reason": "Even a driver already at the donor would finish delivery after closing.",
       "earliest_possible_delivery": 962
     },
-    "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing. Earliest possible 16:02, closing 15:40.",
+    "answer": "R25 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP25 to D25, load 1. Board at 15:30 on 2026-11-20 (America/New_York). Earliest possible 16:02, closing 15:40.",
+    "elapsed_seconds": 64.46,
     "round": 2,
     "case": "R25",
+    "scenario": "tight_window",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -1549,6 +2334,8 @@
         "result": {
           "case_id": "R26",
           "case_ref": "R26-3793bb140b78",
+          "pickup": "P26",
+          "dropoff": "D26",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -1563,6 +2350,7 @@
             "unverified_position": 1
           },
           "route_failures": {},
+          "blocked_routes": {},
           "candidates": [],
           "road_source": "OSRM driving / OpenStreetMap",
           "status": "NEEDS_INFO",
@@ -1574,6 +2362,8 @@
     "report": {
       "case_id": "R26",
       "case_ref": "R26-3793bb140b78",
+      "pickup": "P26",
+      "dropoff": "D26",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -1588,14 +2378,17 @@
         "unverified_position": 1
       },
       "route_failures": {},
+      "blocked_routes": {},
       "candidates": [],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "NEEDS_INFO",
       "reason": "Missing transport time limit for perishable goods."
     },
-    "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.",
+    "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.\nP26 to D26, load 1. Board at 15:30 on 2026-11-20 (America/New_York).",
+    "elapsed_seconds": 58.0,
     "round": 2,
     "case": "R26",
+    "scenario": "missing_policy",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -1613,6 +2406,8 @@
         "result": {
           "case_id": "R26",
           "case_ref": "R26-3793bb140b78",
+          "pickup": "P26",
+          "dropoff": "D26",
           "as_of": 930,
           "service_date": "2026-11-20",
           "timezone": "America/New_York",
@@ -1627,6 +2422,7 @@
             "unverified_position": 1
           },
           "route_failures": {},
+          "blocked_routes": {},
           "candidates": [],
           "road_source": "OSRM driving / OpenStreetMap",
           "status": "NEEDS_INFO",
@@ -1638,6 +2434,8 @@
     "report": {
       "case_id": "R26",
       "case_ref": "R26-3793bb140b78",
+      "pickup": "P26",
+      "dropoff": "D26",
       "as_of": 930,
       "service_date": "2026-11-20",
       "timezone": "America/New_York",
@@ -1652,14 +2450,17 @@
         "unverified_position": 1
       },
       "route_failures": {},
+      "blocked_routes": {},
       "candidates": [],
       "road_source": "OSRM driving / OpenStreetMap",
       "status": "NEEDS_INFO",
       "reason": "Missing transport time limit for perishable goods."
     },
-    "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.",
+    "answer": "R26 | NEEDS_INFO | Missing transport time limit for perishable goods.\nP26 to D26, load 1. Board at 15:30 on 2026-11-20 (America/New_York).",
+    "elapsed_seconds": 17.95,
     "round": 2,
     "case": "R26",
+    "scenario": "missing_policy",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -1684,8 +2485,10 @@
       "error": "Error executing tool plan_rescue: Unknown cancellation R999."
     },
     "answer": "Unable to verify. Error executing tool plan_rescue: Unknown cancellation R999.",
+    "elapsed_seconds": 9.25,
     "round": 2,
     "case": "R999",
+    "scenario": "unknown",
     "passed_expected_result": true,
     "same_outcome": true
   },
@@ -1710,8 +2513,647 @@
       "error": "Error executing tool get_cancelled_pickup: Unknown cancellation R999."
     },
     "answer": "Unable to verify. Error executing tool get_cancelled_pickup: Unknown cancellation R999.",
+    "elapsed_seconds": 10.24,
     "round": 2,
     "case": "R999",
+    "scenario": "unknown",
+    "passed_expected_result": true,
+    "same_outcome": true
+  },
+  {
+    "mode": "individual",
+    "model": "Qwen3-4B-Instruct-2507",
+    "question": "Who can cover pickup R24?",
+    "calls": [
+      {
+        "tool": "get_cancelled_pickup",
+        "arguments": {
+          "case_id": "R24"
+        },
+        "dispatched": true,
+        "result": {
+          "case_ref": "R24-71f45b3922a4",
+          "case_id": "R24",
+          "as_of": 930,
+          "units": 3,
+          "pickup": "P24",
+          "dropoff": "D24",
+          "deadline": 1020
+        }
+      },
+      {
+        "tool": "screen_volunteers",
+        "arguments": {
+          "case_ref": "R24-71f45b3922a4"
+        },
+        "dispatched": true,
+        "result": {
+          "driver_ids": [
+            "V13",
+            "V19",
+            "V22",
+            "V27",
+            "V29",
+            "V32",
+            "V33"
+          ],
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "reported_unavailable": 1,
+            "unverified_position": 1
+          }
+        }
+      },
+      {
+        "tool": "evaluate_routes",
+        "arguments": {
+          "case_ref": "R24-71f45b3922a4",
+          "driver_ids": [
+            "V13",
+            "V19",
+            "V22",
+            "V27",
+            "V29",
+            "V32",
+            "V33"
+          ]
+        },
+        "dispatched": true,
+        "result": {
+          "case_id": "R24",
+          "case_ref": "R24-71f45b3922a4",
+          "pickup": "P24",
+          "dropoff": "D24",
+          "as_of": 930,
+          "service_date": "2026-11-20",
+          "timezone": "America/New_York",
+          "dropoff_deadline": 1020,
+          "units": 3,
+          "screened": 50,
+          "eligible": 7,
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "reported_unavailable": 1,
+            "unverified_position": 1
+          },
+          "route_failures": {
+            "existing_booking": 2,
+            "pickup_deadline": 1
+          },
+          "blocked_routes": {
+            "V13": [
+              "existing_booking",
+              "pickup_deadline"
+            ],
+            "V27": [
+              "existing_booking"
+            ]
+          },
+          "candidates": [
+            {
+              "driver": "V29",
+              "pickup_at": 958,
+              "pickup_done": 963,
+              "delivered_at": 995,
+              "deadline_slack_min": 25,
+              "shift_return_at": 1011,
+              "road_minutes_full_tour": 71,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V32",
+              "pickup_at": 959,
+              "pickup_done": 964,
+              "delivered_at": 996,
+              "deadline_slack_min": 24,
+              "shift_return_at": 1007,
+              "road_minutes_full_tour": 67,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V22",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1008,
+              "road_minutes_full_tour": 68,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V19",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1019,
+              "road_minutes_full_tour": 79,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V33",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1023,
+              "road_minutes_full_tour": 83,
+              "bookings_before_pickup": 0
+            }
+          ],
+          "road_source": "OSRM driving / OpenStreetMap",
+          "status": "PROPOSED",
+          "reason": "Dispatcher and volunteer confirmation required."
+        }
+      }
+    ],
+    "turns": 3,
+    "report": {
+      "case_id": "R24",
+      "case_ref": "R24-71f45b3922a4",
+      "pickup": "P24",
+      "dropoff": "D24",
+      "as_of": 930,
+      "service_date": "2026-11-20",
+      "timezone": "America/New_York",
+      "dropoff_deadline": 1020,
+      "units": 3,
+      "screened": 50,
+      "eligible": 7,
+      "excluded": {
+        "cancelled_original": 1,
+        "capacity": 1,
+        "cold_carrier_unavailable": 1,
+        "off_shift": 38,
+        "reported_unavailable": 1,
+        "unverified_position": 1
+      },
+      "route_failures": {
+        "existing_booking": 2,
+        "pickup_deadline": 1
+      },
+      "blocked_routes": {
+        "V13": [
+          "existing_booking",
+          "pickup_deadline"
+        ],
+        "V27": [
+          "existing_booking"
+        ]
+      },
+      "candidates": [
+        {
+          "driver": "V29",
+          "pickup_at": 958,
+          "pickup_done": 963,
+          "delivered_at": 995,
+          "deadline_slack_min": 25,
+          "shift_return_at": 1011,
+          "road_minutes_full_tour": 71,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V32",
+          "pickup_at": 959,
+          "pickup_done": 964,
+          "delivered_at": 996,
+          "deadline_slack_min": 24,
+          "shift_return_at": 1007,
+          "road_minutes_full_tour": 67,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V22",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1008,
+          "road_minutes_full_tour": 68,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V19",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1019,
+          "road_minutes_full_tour": 79,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V33",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1023,
+          "road_minutes_full_tour": 83,
+          "bookings_before_pickup": 0
+        }
+      ],
+      "road_source": "OSRM driving / OpenStreetMap",
+      "status": "PROPOSED",
+      "reason": "Dispatcher and volunteer confirmation required."
+    },
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 47.56,
+    "round": 2,
+    "case": "R24",
+    "scenario": "declined",
+    "passed_expected_result": true,
+    "same_outcome": true
+  },
+  {
+    "mode": "composed",
+    "model": "Qwen3-4B-Instruct-2507",
+    "question": "Who can cover pickup R24?",
+    "calls": [
+      {
+        "tool": "plan_rescue",
+        "arguments": {
+          "case_id": "R24"
+        },
+        "dispatched": true,
+        "result": {
+          "case_id": "R24",
+          "case_ref": "R24-71f45b3922a4",
+          "pickup": "P24",
+          "dropoff": "D24",
+          "as_of": 930,
+          "service_date": "2026-11-20",
+          "timezone": "America/New_York",
+          "dropoff_deadline": 1020,
+          "units": 3,
+          "screened": 50,
+          "eligible": 7,
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "reported_unavailable": 1,
+            "unverified_position": 1
+          },
+          "route_failures": {
+            "existing_booking": 2,
+            "pickup_deadline": 1
+          },
+          "blocked_routes": {
+            "V13": [
+              "existing_booking",
+              "pickup_deadline"
+            ],
+            "V27": [
+              "existing_booking"
+            ]
+          },
+          "candidates": [
+            {
+              "driver": "V29",
+              "pickup_at": 958,
+              "pickup_done": 963,
+              "delivered_at": 995,
+              "deadline_slack_min": 25,
+              "shift_return_at": 1011,
+              "road_minutes_full_tour": 71,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V32",
+              "pickup_at": 959,
+              "pickup_done": 964,
+              "delivered_at": 996,
+              "deadline_slack_min": 24,
+              "shift_return_at": 1007,
+              "road_minutes_full_tour": 67,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V22",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1008,
+              "road_minutes_full_tour": 68,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V19",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1019,
+              "road_minutes_full_tour": 79,
+              "bookings_before_pickup": 0
+            },
+            {
+              "driver": "V33",
+              "pickup_at": 960,
+              "pickup_done": 965,
+              "delivered_at": 997,
+              "deadline_slack_min": 23,
+              "shift_return_at": 1023,
+              "road_minutes_full_tour": 83,
+              "bookings_before_pickup": 0
+            }
+          ],
+          "road_source": "OSRM driving / OpenStreetMap",
+          "status": "PROPOSED",
+          "reason": "Dispatcher and volunteer confirmation required."
+        }
+      }
+    ],
+    "turns": 1,
+    "report": {
+      "case_id": "R24",
+      "case_ref": "R24-71f45b3922a4",
+      "pickup": "P24",
+      "dropoff": "D24",
+      "as_of": 930,
+      "service_date": "2026-11-20",
+      "timezone": "America/New_York",
+      "dropoff_deadline": 1020,
+      "units": 3,
+      "screened": 50,
+      "eligible": 7,
+      "excluded": {
+        "cancelled_original": 1,
+        "capacity": 1,
+        "cold_carrier_unavailable": 1,
+        "off_shift": 38,
+        "reported_unavailable": 1,
+        "unverified_position": 1
+      },
+      "route_failures": {
+        "existing_booking": 2,
+        "pickup_deadline": 1
+      },
+      "blocked_routes": {
+        "V13": [
+          "existing_booking",
+          "pickup_deadline"
+        ],
+        "V27": [
+          "existing_booking"
+        ]
+      },
+      "candidates": [
+        {
+          "driver": "V29",
+          "pickup_at": 958,
+          "pickup_done": 963,
+          "delivered_at": 995,
+          "deadline_slack_min": 25,
+          "shift_return_at": 1011,
+          "road_minutes_full_tour": 71,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V32",
+          "pickup_at": 959,
+          "pickup_done": 964,
+          "delivered_at": 996,
+          "deadline_slack_min": 24,
+          "shift_return_at": 1007,
+          "road_minutes_full_tour": 67,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V22",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1008,
+          "road_minutes_full_tour": 68,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V19",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1019,
+          "road_minutes_full_tour": 79,
+          "bookings_before_pickup": 0
+        },
+        {
+          "driver": "V33",
+          "pickup_at": 960,
+          "pickup_done": 965,
+          "delivered_at": 997,
+          "deadline_slack_min": 23,
+          "shift_return_at": 1023,
+          "road_minutes_full_tour": 83,
+          "bookings_before_pickup": 0
+        }
+      ],
+      "road_source": "OSRM driving / OpenStreetMap",
+      "status": "PROPOSED",
+      "reason": "Dispatcher and volunteer confirmation required."
+    },
+    "answer": "R24 | PROPOSED | Dispatcher and volunteer confirmation required.\nP24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).\nContact V29. Pickup 15:58, delivery complete 16:35, 25 min before closing. 5 feasible of 50 screened.\nNext option: V32, delivery 16:36.\nRoutes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).",
+    "elapsed_seconds": 8.65,
+    "round": 2,
+    "case": "R24",
+    "scenario": "declined",
+    "passed_expected_result": true,
+    "same_outcome": true
+  },
+  {
+    "mode": "composed",
+    "model": "Qwen3-4B-Instruct-2507",
+    "question": "Who can cover pickup R24?",
+    "calls": [
+      {
+        "tool": "plan_rescue",
+        "arguments": {
+          "case_id": "R24"
+        },
+        "dispatched": true,
+        "result": {
+          "case_id": "R24",
+          "case_ref": "R24-8ba66947e3b4",
+          "pickup": "P24",
+          "dropoff": "D24",
+          "as_of": 1010,
+          "service_date": "2026-11-20",
+          "timezone": "America/New_York",
+          "dropoff_deadline": 1020,
+          "units": 3,
+          "screened": 50,
+          "eligible": 0,
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "unverified_position": 9
+          },
+          "route_failures": {},
+          "blocked_routes": {},
+          "candidates": [],
+          "road_source": "OSRM driving / OpenStreetMap",
+          "status": "NO_FEASIBLE_DRIVER",
+          "reason": "Even a driver already at the donor would finish delivery after closing.",
+          "earliest_possible_delivery": 1047
+        }
+      }
+    ],
+    "turns": 1,
+    "report": {
+      "case_id": "R24",
+      "case_ref": "R24-8ba66947e3b4",
+      "pickup": "P24",
+      "dropoff": "D24",
+      "as_of": 1010,
+      "service_date": "2026-11-20",
+      "timezone": "America/New_York",
+      "dropoff_deadline": 1020,
+      "units": 3,
+      "screened": 50,
+      "eligible": 0,
+      "excluded": {
+        "cancelled_original": 1,
+        "capacity": 1,
+        "cold_carrier_unavailable": 1,
+        "off_shift": 38,
+        "unverified_position": 9
+      },
+      "route_failures": {},
+      "blocked_routes": {},
+      "candidates": [],
+      "road_source": "OSRM driving / OpenStreetMap",
+      "status": "NO_FEASIBLE_DRIVER",
+      "reason": "Even a driver already at the donor would finish delivery after closing.",
+      "earliest_possible_delivery": 1047
+    },
+    "answer": "R24 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP24 to D24, load 3. Board at 16:50 on 2026-11-20 (America/New_York). Earliest possible 17:27, closing 17:00.",
+    "elapsed_seconds": 17.13,
+    "round": 2,
+    "case": "R24",
+    "scenario": "late",
+    "passed_expected_result": true,
+    "same_outcome": true
+  },
+  {
+    "mode": "individual",
+    "model": "Qwen3-4B-Instruct-2507",
+    "question": "Who can cover pickup R24?",
+    "calls": [
+      {
+        "tool": "get_cancelled_pickup",
+        "arguments": {
+          "case_id": "R24"
+        },
+        "dispatched": true,
+        "result": {
+          "case_ref": "R24-8ba66947e3b4",
+          "case_id": "R24",
+          "as_of": 1010,
+          "units": 3,
+          "pickup": "P24",
+          "dropoff": "D24",
+          "deadline": 1020
+        }
+      },
+      {
+        "tool": "screen_volunteers",
+        "arguments": {
+          "case_ref": "R24-8ba66947e3b4"
+        },
+        "dispatched": true,
+        "result": {
+          "driver_ids": [],
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "unverified_position": 9
+          }
+        }
+      },
+      {
+        "tool": "evaluate_routes",
+        "arguments": {
+          "case_ref": "R24-8ba66947e3b4",
+          "driver_ids": []
+        },
+        "dispatched": true,
+        "result": {
+          "case_id": "R24",
+          "case_ref": "R24-8ba66947e3b4",
+          "pickup": "P24",
+          "dropoff": "D24",
+          "as_of": 1010,
+          "service_date": "2026-11-20",
+          "timezone": "America/New_York",
+          "dropoff_deadline": 1020,
+          "units": 3,
+          "screened": 50,
+          "eligible": 0,
+          "excluded": {
+            "cancelled_original": 1,
+            "capacity": 1,
+            "cold_carrier_unavailable": 1,
+            "off_shift": 38,
+            "unverified_position": 9
+          },
+          "route_failures": {},
+          "blocked_routes": {},
+          "candidates": [],
+          "road_source": "OSRM driving / OpenStreetMap",
+          "status": "NO_FEASIBLE_DRIVER",
+          "reason": "Even a driver already at the donor would finish delivery after closing.",
+          "earliest_possible_delivery": 1047
+        }
+      }
+    ],
+    "turns": 3,
+    "report": {
+      "case_id": "R24",
+      "case_ref": "R24-8ba66947e3b4",
+      "pickup": "P24",
+      "dropoff": "D24",
+      "as_of": 1010,
+      "service_date": "2026-11-20",
+      "timezone": "America/New_York",
+      "dropoff_deadline": 1020,
+      "units": 3,
+      "screened": 50,
+      "eligible": 0,
+      "excluded": {
+        "cancelled_original": 1,
+        "capacity": 1,
+        "cold_carrier_unavailable": 1,
+        "off_shift": 38,
+        "unverified_position": 9
+      },
+      "route_failures": {},
+      "blocked_routes": {},
+      "candidates": [],
+      "road_source": "OSRM driving / OpenStreetMap",
+      "status": "NO_FEASIBLE_DRIVER",
+      "reason": "Even a driver already at the donor would finish delivery after closing.",
+      "earliest_possible_delivery": 1047
+    },
+    "answer": "R24 | NO_FEASIBLE_DRIVER | Even a driver already at the donor would finish delivery after closing.\nP24 to D24, load 3. Board at 16:50 on 2026-11-20 (America/New_York). Earliest possible 17:27, closing 17:00.",
+    "elapsed_seconds": 36.99,
+    "round": 2,
+    "case": "R24",
+    "scenario": "late",
     "passed_expected_result": true,
     "same_outcome": true
   }

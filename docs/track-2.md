@@ -1,10 +1,11 @@
 # Track 2 submission
 
-## A 60-second demonstration
+## What to show the judges
 
 1. Ask “Who can cover pickup R24?” The pantry closes at 17:00. Volunteer V27 could arrive earlier but already has a fixed appointment. The best feasible option is V20. From 15:30 allow 20 minutes to reach the donor, 5 to load, 27 to drive and 5 to unload. Delivery finishes at 16:27.
 2. Ask the same question for R25. Even a driver at the donor would finish 22 minutes after the pantry closes. For R26, a missing cold transport limit calls for a dispatcher check.
 3. Open the comparison, then run the assignment command. The model only plans. Once the volunteer agrees, the dispatcher types an exact confirmation to record the booking. A repeat query reports the recorded assignment.
+4. To answer “What if V20 says no?”, use the confirmed refusal command on the same board. V29 becomes first and the delivery moves to 16:35. A later dispatch time can invalidate every route for that same pickup.
 
 ## Check against the participant guide
 
@@ -14,7 +15,7 @@
 | Agent using the tool | A real model sees schemas discovered over MCP stdio and supplies the tool name and arguments. The client renders the verified result and records requests rejected for invented identifiers. [Agent](../agent.py) |
 | Same job with one and several tools | The comparison changes only the exposed tool surface. It keeps the questions, model, temperature, policy, dispatch board and routing code fixed, alternates mode order and uses a fresh conversation each time. [Runner](../compare.py) · [Traces](../evidence/comparison.json) |
 | Tool design | One cancellation ID returns ranked alternatives, pickup and delivery times, slack, and reasons for exclusions. Feasibility uses directed road estimates, handling time, fixed appointments and the return before shift end. |
-| Errors and edge cases | A missed deadline and missing data produce different decisions. Unknown IDs produce explicit tool errors. Tests change road data, probe exact boundaries, compare both actual servers and invalidate outdated plans. [Tests](../tests) |
+| Errors and edge cases | A missed deadline, missing policy and unknown ID produce distinct outcomes. The agent can recover from a changed board by reading a fresh snapshot. A finished commitment after the last check-in requires a new location. Tests also interrupt model requests and replay simultaneous human decisions. [Tests](../tests) |
 | Confirmation before changes | Neither MCP surface can write. The separate dispatcher command prompts for an exact confirmation, revalidates under an SQLite write lock and records one local booking. Tests simulate two people booking the same case. [Booking implementation](../food_rescue/service.py) |
 
 The organizers set qualitative criteria for Track 2. [Participant guide, page 2](https://drive.google.com/file/d/1k_A_9cFr7WL9qyG6NAxbBJyp1goZS8l6/view)
@@ -29,8 +30,18 @@ Two rounds with local Qwen3-4B-Instruct-2507, temperature zero. Counts below are
 | R25 | 1 | 3 | No feasible driver, earliest possible 16:02 |
 | R26 | 1 | 3 | Transport limit missing, no proposal |
 | R999 | 1 | 1 | Unknown cancellation reported at lookup |
+| R24 after V20 declines | 1 | 3 | V29, delivery at 16:35 |
+| R24 at 16:50 | 1 | 3 | No feasible driver, earliest possible 17:27 |
 
-All 16 conversations reached the expected outcome. Across both rounds, the model made 8 composed calls and 20 individual calls, including the missing ID. Every proposed call reached the advertised server. These counts measure agent-to-server interactions on this fixture. Field reliability, time saved by dispatchers and completed deliveries need a pilot with a food rescue organization.
+Each comparison uses an isolated ledger. The two modes start from the same refusal history and clock. The trace includes rejected attempts, elapsed seconds from opening the MCP session to returning a report, and the complete output for each conversation.
+
+All 24 conversations returned the expected result. The composed mode made 12 MCP calls across its 12 conversations, and the individual mode made 32 across its 12. Neither mode produced a rejected attempt on this run. Median elapsed time on this Windows PC with the local Qwen3-4B model already loaded was 8.6 seconds and 28.6 seconds respectively. Both modes reached the same dispatch decisions.
+
+## What the fund would need for a pilot
+
+The board covers one service day, volunteers currently on shift and one pickup and delivery inserted between fixed commitments. Check-ins, acceptance and the time limit for perishable goods must come from the operator. Travel estimates use a saved road network. A proposed route with 33 minutes to spare gives the dispatcher a reason to call V20. A completed delivery requires confirmation from the receiving organization.
+
+For a pilot, record the current manual baseline and compare the median time from a cancellation to an accepted replacement, the share of pickups delivered before closing, and cases sent for manual verification. The demo measures agent behavior; no partner delivery outcomes have been measured.
 
 ## Rebuild the generated server
 

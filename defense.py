@@ -5,51 +5,75 @@ import asyncio
 import os
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 from agent import ROOT, review
-from demo import demonstrate
+from demo import confirm_change
 
-CASE_ID = "R24"
-DRIVER_ID = "V20"
-QUESTION = f"Who can cover pickup {CASE_ID}?"
+QUESTION = "Who can cover pickup R24?"
 
 
-async def show_request(mode, base_url, model):
-    result = await review(QUESTION, mode, base_url, model, os.getenv("DISPATCH_MODEL_API_KEY"))
+async def show_request(question, mode, base_url, model):
+    result = await review(question, mode, base_url, model, os.getenv("DISPATCH_MODEL_API_KEY"))
     calls = [call["tool"] for call in result["calls"] if call["dispatched"]]
     print(f"\n{mode} | {len(calls)} MCP call(s) | {' -> '.join(calls)}")
     print(result["answer"])
     return result["report"]
 
 
-async def run(base_url, model):
+async def run(base_url, model, question=QUESTION):
     work_dir = ROOT / ".work"
     work_dir.mkdir(exist_ok=True)
     run_dir = Path(tempfile.mkdtemp(prefix="defense-", dir=work_dir))
-    os.environ["DISPATCH_DATA"] = str(ROOT / "examples")
-    os.environ["DISPATCH_LEDGER"] = str(run_dir / "assignments.sqlite3")
-
-    print(f"Dispatcher: {QUESTION}")
-    composed = await show_request("composed", base_url, model)
-    individual = await show_request("individual", base_url, model)
-    if (
-        composed != individual
-        or composed.get("status") != "PROPOSED"
-        or composed["candidates"][0]["driver"] != DRIVER_ID
+    with patch.dict(
+        os.environ,
+        {
+            "DISPATCH_DATA": str(ROOT / "examples"),
+            "DISPATCH_LEDGER": str(run_dir / "assignments.sqlite3"),
+        },
     ):
-        print(f"Expected both modes to propose {DRIVER_ID} first for {CASE_ID}.")
-        return 1
+        return await compare_and_confirm(base_url, model, question)
 
-    print(f"\nDispatcher confirmation (demo assumption: volunteer {DRIVER_ID} has agreed)")
-    if await demonstrate([CASE_ID], DRIVER_ID):
-        return 1
 
-    print(f"\nDispatcher asks again: {QUESTION}")
-    report = await show_request("composed", base_url, model)
-    if report.get("status") == "PROPOSED":
-        print("No assignment was recorded in this run.")
-    elif report.get("status") != "ALREADY_ASSIGNED":
+async def compare_and_confirm(base_url, model, question):
+    print(f"Dispatcher: {question}")
+    composed = await show_request(question, "composed", base_url, model)
+    individual = await show_request(question, "individual", base_url, model)
+    if "error" in composed or "error" in individual:
+        print("Dispatch stopped without a verified report.")
         return 1
+    if composed != individual:
+        print("The two modes disagree on the dispatch report.")
+        return 1
+    if composed["status"] != "PROPOSED":
+        return 0
+    best = composed["candidates"][0]
+    print(f"\nDemo assumption: volunteer {best['driver']} has agreed.")
+    try:
+        receipt = confirm_change(composed, best["driver"])
+    except ValueError as exc:
+        print(str(exc))
+        return 1
+    print(f"\nDispatcher asks again: {question}")
+    report = await show_request(question, "composed", base_url, model)
+    if receipt is None:
+        if report != composed:
+            print("Board changed after the skipped confirmation.")
+            return 1
+        print("Verified: the proposal is unchanged.")
+        return 0
+    expected = {
+        "case_id": composed["case_id"],
+        "driver": best["driver"],
+        "pickup": composed["pickup"],
+        "dropoff": composed["dropoff"],
+        "pickup_at": best["pickup_at"],
+        "delivered_at": best["delivered_at"],
+    }
+    if report.get("status") != "ALREADY_ASSIGNED" or report.get("assignment") != expected:
+        print("The read-back does not match the confirmed booking.")
+        return 1
+    print("Verified the recorded driver, pickup and delivery against the confirmed proposal.")
     return 0
 
 
@@ -57,5 +81,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-url", required=True)
     parser.add_argument("--model", required=True)
+    parser.add_argument("--question", default=QUESTION)
     args = parser.parse_args()
-    raise SystemExit(asyncio.run(run(args.base_url, args.model)))
+    try:
+        raise SystemExit(asyncio.run(run(args.base_url, args.model, args.question)))
+    except ValueError as exc:
+        parser.exit(2, f"{exc}\n")
