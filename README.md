@@ -4,7 +4,7 @@ A food pantry closes at 5 p.m. The volunteer who was going to collect a donation
 
 **Vibe-a-thon · Track 2 · One Smart Tool from Many Small Functions.** Built in Python with Synapse Custom and the Model Context Protocol (MCP).
 
-[Recorded terminal demo](evidence/defense-transcript.txt) · [Generated MCP tool](synapse/plan_rescue_server.py) · [Agent](agent.py) · [Track 2 comparison](docs/track-2.md)
+[Recorded terminal demo](evidence/defense-transcript.txt) · [Generated MCP tool](synapse/plan_rescue_server.py) · [Agent](agent.py) · [Track 2 comparison](docs/track-2.md) · [Development history](#development-history)
 
 ## Try a pickup
 
@@ -44,3 +44,7 @@ python -m unittest discover -s tests -v
 ```
 
 To repeat the 24 model runs after configuring the local model endpoint, use `python compare.py --rounds 2 --output .work/comparison.json`. [Model setup](docs/running.md#run-the-agent)
+
+## Development history
+
+Five commits from November 20–23, 2026 trace the first dispatch agent, Windows demo fixes, volunteer refusals and the perishable-load delay check. They were imported from the team's development repository with the original author dates and GitHub attribution. Each imported commit records its original ID in the `Source-Commit` trailer. [Browse the five commits and their diffs](https://github.com/vl444dimir/food-rescue-dispatch/commits/43bfe61ea8c687e4c80f27bd09464af7f98067a8/)
