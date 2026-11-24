@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.synapse/
+.env
+.work/
+.ruff_cache/
+*.egg-info/
+build/
+dist/

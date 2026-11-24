@@ -1,0 +1,27 @@
+{
+  "cli": "@2ndbrainlabs-ai/synapse-cli",
+  "version": "0.1.9",
+  "mode": "Custom",
+  "execution": "local",
+  "provider": "custom (loopback llama.cpp)",
+  "model": "Qwen3-4B-Instruct-2507",
+  "quantization": "Q4_K_M",
+  "entry": "synapse/plan_rescue_server.py",
+  "advertised_tools": [
+    "plan_rescue"
+  ],
+  "source": "synapse/workflow.py",
+  "functions": [
+    "get_cancelled_pickup",
+    "screen_volunteers",
+    "evaluate_routes"
+  ],
+  "hash_convention": "SHA-256 of UTF-8 text with LF line endings",
+  "sha256": {
+    "synapse/intent.txt": "c65a859934b7f4475454fc1293e232f1f2c50f4f5d7e2c702c37edd296e055ad",
+    "synapse/workflow.py": "ceaa51691a5ea244a4dc1f89ff85abdb408e7aaf147a61e5607514d56513e68d",
+    "synapse/plan_rescue_server.py": "5402ac37d6158a91a9137871e9d909e1285d4b3c0a3e8ff4aa3ce1b958003294",
+    "examples/dispatch.json": "c00eaa38b17e0d16e3ec05506d3e9f6d84dc3cd56c9740a9e927a3dfd9e47b00",
+    "examples/roads.json": "beb0beaeafe38c0410b20bd1becb2e1913e808047ce000d2a2729a6d9069c0a4"
+  }
+}

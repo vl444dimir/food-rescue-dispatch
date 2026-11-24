@@ -1,0 +1,823 @@
+{
+  "service_date": "2026-11-20",
+  "timezone": "America/New_York",
+  "handling_minutes": 5,
+  "fresh_for": 15,
+  "drivers": {
+    "V1": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V1-start",
+      "last_seen": 925,
+      "return_to": "V1-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V2": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V2-start",
+      "last_seen": 925,
+      "return_to": "V2-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V3": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V3-start",
+      "last_seen": 925,
+      "return_to": "V3-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V4": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V4-start",
+      "last_seen": 925,
+      "return_to": "V4-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V5": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V5-start",
+      "last_seen": 925,
+      "return_to": "V5-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V6": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V6-start",
+      "last_seen": 925,
+      "return_to": "V6-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V7": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V7-start",
+      "last_seen": 925,
+      "return_to": "V7-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V8": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V8-start",
+      "last_seen": 925,
+      "return_to": "V8-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V9": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V9-start",
+      "last_seen": 925,
+      "return_to": "V9-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V10": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V10-start",
+      "last_seen": 925,
+      "return_to": "V10-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V11": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V11-start",
+      "last_seen": 925,
+      "return_to": "V11-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V12": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V12-start",
+      "last_seen": 925,
+      "return_to": "V12-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V13": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V13-start",
+      "last_seen": 925,
+      "return_to": "V13-end",
+      "cold_carrier": true,
+      "stops": [
+        {
+          "place": "D24",
+          "start": 982,
+          "end": 992
+        }
+      ]
+    },
+    "V14": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V14-start",
+      "last_seen": 925,
+      "return_to": "V14-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V15": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V15-start",
+      "last_seen": 925,
+      "return_to": "V15-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V16": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V16-start",
+      "last_seen": 925,
+      "return_to": "V16-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V17": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V17-start",
+      "last_seen": 925,
+      "return_to": "V17-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V18": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V18-start",
+      "last_seen": 925,
+      "return_to": "V18-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V19": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V19-start",
+      "last_seen": 925,
+      "return_to": "V19-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V20": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V20-start",
+      "last_seen": 925,
+      "return_to": "V20-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V21": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V21-start",
+      "last_seen": 925,
+      "return_to": "V21-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V22": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V22-start",
+      "last_seen": 925,
+      "return_to": "V22-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V23": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 3,
+      "load": 1,
+      "position": "V23-start",
+      "last_seen": 925,
+      "return_to": "V23-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V24": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V24-start",
+      "last_seen": 925,
+      "return_to": "V24-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V25": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V25-start",
+      "last_seen": 925,
+      "return_to": "V25-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V26": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V26-start",
+      "last_seen": 925,
+      "return_to": "V26-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V27": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V27-start",
+      "last_seen": 925,
+      "return_to": "V27-end",
+      "cold_carrier": true,
+      "stops": [
+        {
+          "place": "P25",
+          "start": 957,
+          "end": 967
+        }
+      ]
+    },
+    "V28": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V28-start",
+      "last_seen": 925,
+      "return_to": "V28-end",
+      "cold_carrier": false,
+      "stops": []
+    },
+    "V29": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 4,
+      "load": 1,
+      "position": "V29-start",
+      "last_seen": 925,
+      "return_to": "V29-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V30": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V30-start",
+      "last_seen": 870,
+      "return_to": "V30-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V31": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V31-start",
+      "last_seen": 925,
+      "return_to": "V31-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V32": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V32-start",
+      "last_seen": 925,
+      "return_to": "V32-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V33": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V33-start",
+      "last_seen": 925,
+      "return_to": "V33-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V34": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V34-start",
+      "last_seen": 925,
+      "return_to": "V34-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V35": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V35-start",
+      "last_seen": 925,
+      "return_to": "V35-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V36": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V36-start",
+      "last_seen": 925,
+      "return_to": "V36-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V37": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V37-start",
+      "last_seen": 925,
+      "return_to": "V37-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V38": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V38-start",
+      "last_seen": 925,
+      "return_to": "V38-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V39": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V39-start",
+      "last_seen": 925,
+      "return_to": "V39-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V40": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V40-start",
+      "last_seen": 925,
+      "return_to": "V40-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V41": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V41-start",
+      "last_seen": 925,
+      "return_to": "V41-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V42": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V42-start",
+      "last_seen": 925,
+      "return_to": "V42-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V43": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V43-start",
+      "last_seen": 925,
+      "return_to": "V43-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V44": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V44-start",
+      "last_seen": 925,
+      "return_to": "V44-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V45": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V45-start",
+      "last_seen": 925,
+      "return_to": "V45-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V46": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V46-start",
+      "last_seen": 925,
+      "return_to": "V46-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V47": {
+      "shifts": [
+        [
+          660,
+          900
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V47-start",
+      "last_seen": 925,
+      "return_to": "V47-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V48": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 3,
+      "load": 0,
+      "position": "V48-start",
+      "last_seen": 925,
+      "return_to": "V48-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V49": {
+      "shifts": [
+        [
+          840,
+          1080
+        ]
+      ],
+      "capacity": 5,
+      "load": 0,
+      "position": "V49-start",
+      "last_seen": 925,
+      "return_to": "V49-end",
+      "cold_carrier": true,
+      "stops": []
+    },
+    "V50": {
+      "shifts": [
+        [
+          480,
+          720
+        ]
+      ],
+      "capacity": 4,
+      "load": 0,
+      "position": "V50-start",
+      "last_seen": 925,
+      "return_to": "V50-end",
+      "cold_carrier": true,
+      "stops": []
+    }
+  },
+  "cases": {
+    "R24": {
+      "as_of": 930,
+      "cancelled_driver": "V49",
+      "units": 3,
+      "perishable": true,
+      "pickup": "P24",
+      "dropoff": "D24",
+      "pickup_window": [
+        540,
+        1020
+      ],
+      "dropoff_window": [
+        540,
+        1020
+      ],
+      "max_onboard": 55
+    },
+    "R25": {
+      "as_of": 930,
+      "cancelled_driver": "V49",
+      "units": 1,
+      "perishable": true,
+      "pickup": "P25",
+      "dropoff": "D25",
+      "pickup_window": [
+        540,
+        1020
+      ],
+      "dropoff_window": [
+        540,
+        940
+      ],
+      "max_onboard": 55
+    },
+    "R26": {
+      "as_of": 930,
+      "cancelled_driver": "V49",
+      "units": 1,
+      "perishable": true,
+      "pickup": "P26",
+      "dropoff": "D26",
+      "pickup_window": [
+        540,
+        1020
+      ],
+      "dropoff_window": [
+        540,
+        1020
+      ],
+      "max_onboard": null
+    }
+  }
+}

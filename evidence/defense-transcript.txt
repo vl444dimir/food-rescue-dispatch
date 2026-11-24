@@ -1,0 +1,31 @@
+Dispatcher: Who can cover pickup R24?
+
+composed | 1 MCP call(s) | plan_rescue
+R24 | PROPOSED | Dispatcher and volunteer confirmation required.
+P24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).
+Contact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.
+Extra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.
+Next option: V29, delivery 16:35.
+Routes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).
+
+individual | 3 MCP call(s) | get_cancelled_pickup -> screen_volunteers -> evaluate_routes
+R24 | PROPOSED | Dispatcher and volunteer confirmation required.
+P24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).
+Contact V20. Pickup 15:50, delivery complete 16:27, 33 min before closing. 6 feasible of 50 screened.
+Extra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.
+Next option: V29, delivery 16:35.
+Routes ruled out or unverified: V13 (conflicts with an existing booking, misses donor closing), V27 (conflicts with an existing booking).
+
+Demo assumption: volunteer V20 has agreed.
+Selected V20 for R24: P24 at 15:50, D24 by 16:27.
+Extra driving time from donor to pantry: up to 23 min with this pickup time. Limited by the perishable-load time limit.
+After the volunteer accepts, type ASSIGN R24 V20 to confirm.
+{"case_id": "R24", "driver": "V20", "status": "ASSIGNED"}
+
+Dispatcher asks again: Who can cover pickup R24?
+
+composed | 1 MCP call(s) | plan_rescue
+R24 | ALREADY_ASSIGNED | Recorded by dispatcher: V20
+P24 to D24, load 3. Board at 15:30 on 2026-11-20 (America/New_York).
+Recorded pickup 15:50, delivery 16:27 with V20.
+Verified the recorded driver, pickup and delivery against the confirmed proposal.
